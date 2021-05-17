@@ -1,7 +1,7 @@
 {
   "name": "my_site",
   "version": "1.0.0",
-  "description": "My Project",
+  "description": "ComIT Final Project",
   "main": "index.js",
   "scripts": {
     "test ": "echo \" hello\"",
