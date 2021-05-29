@@ -4,6 +4,7 @@ body {
   background-color: #fff;
   
 }
+
 /*navbar bg color*/
 .justify-content-between{
 /*  background-color: #ff99cc;*/
@@ -45,7 +46,7 @@ body {
 /*hero image style*/
 .jumbotron {
   margin-top: 115px;
-  background-image: url('../assets/img/asmara_night1.jpg'); 
+  background-image: url('../img/asmara_night1.jpg'); 
   background-size: cover;
 }
 
@@ -88,6 +89,10 @@ body {
   color: yellow;
 }
 
+/*style for home bottom list content*/
+.list-group{
+  font-size: 1rem;
+}
 /*about h1 styele*/
 .mb-5{
   margin-top: 150px;

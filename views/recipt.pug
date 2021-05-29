@@ -1,0 +1,8 @@
+extends ./layout.pug
+
+block content
+  each recipt in recipts
+    div.recipt-container
+      a(href="/recipt/" + recipt.id) 
+        img(src='/img/recipt/' + recipt.image)
+        h3=recipt.name

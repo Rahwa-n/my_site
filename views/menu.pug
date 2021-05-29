@@ -1,0 +1,157 @@
+extends ./layout.pug
+block content
+  // navbar
+  nav.navbar.navbar-expand-md.navbar-light.justify-content-between.fixed-top
+    a.navbar-brand(href='/')
+      img.logo.my-2(src='../img/logo_edited1.png' alt='logo')
+    button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbarsExampleDefault' aria-controls='navbarsExampleDefault' aria-expanded='false' aria-label='Toggle navigation')
+      span.navbar-toggler-icon
+    #navbarsExampleDefault.collapse.navbar-collapse.justify-content-end
+      ul.navbar-nav
+        li.nav-item
+          a.nav-link(href='/')
+            | Home
+            span.sr-only (current)
+        li.nav-item
+          a.nav-link(href='/about') About
+        li.nav-item.active
+          a.nav-link(href='/menu') Menu
+        li.nav-item
+          a.nav-link(href='/services') Services
+        li.nav-item
+          a.nav-link(href='/contact') Contact
+        li.nav-item
+          a.nav-link(href='/register') Register
+        li.nav-item
+          a.nav-link(href='/login') Login
+      .ml-3.top-search
+        // util search
+        form.form-inline(method='get' action='')
+          input(type='hidden' name='_token' value='')
+          input#query.form-control.searchbox(type='search' name='query' placeholder='Search')
+          span.input-group-btn
+            button.btn.btn-outline-info.my-2.my-sm-0.text-white.bu(type='submit') Search
+      .menu-top-wrapper
+        .ml-3.acct_user.d-flex
+          // util profile
+          a(href='#')
+            .circle1
+              .user_image
+                i.fas.fa-user-alt.text-white
+        .ml-2.acct_srch.d-flex
+          // shopping cart
+          .ml-2.circle
+            a(href='#')
+              i.fas.fa-shopping-cart.text-white
+      // navbar
+  // menu
+  section.menu-area.mb-r
+    .container
+      #menu.row
+        // <h1 id="menus" class="display-4 text-center my-5 text-black">Menu</h1>
+        h1.mb-5.info Travel to Eritrea through your test bads!
+        .row
+          .col-md-6.col-lg-4
+            .card.mb-3.shadow
+              img.card-img-top(src='../img/siga_tibis.jpg' alt='Siga Tibis')
+              .card-body
+                h4.card-title.font-weight-bold Siga Tibsi
+                p.card-text
+                  | Lamb cooked with spicy hot pepper, Tomato and spicy Eritrean sauce. Served
+                  | with home made cottage cheese and salad.
+                p.text-center.product-price
+                  a(href='#') $17.99
+                p.text-center.product-order
+                  a(href='#') Order Here
+          .col-md-6.col-lg-4
+            .card.mb-3.shadow
+              img.card-img-top(src='../img/kitfo.jpg' alt='Kitfo')
+              .card-body
+                h4.card-title.font-weight-bold Kitfo
+                p.card-text
+                  | Fresh lean ground beef marinated with spicy butter, chilli pepper, cottage
+                  | cheese with spinach and side dish salad and chapati(kita).
+                p.text-center.product-price
+                  a(href='#') $19.99
+                p.text-center.product-order
+                  a(href='#') Order Here
+          .col-md-6.col-lg-4
+            .card.mb-3.shadow
+              img.card-img-top(src='../img/veggie_combo.jpg' alt='Veggie Combo')
+              .card-body
+                h4.card-title.font-weight-bold Veggie Combo
+                p.card-text
+                  | Our best vegetable cobination; Red lintels, Yellow spilit, collard gree, beets with potato, cabbage
+                  | and a combo of peas and lentil sauces.
+                p.text-center.product-price
+                  a(href='#') $19.99
+                p.text-center.product-order
+                  a(href='#') Order Here
+          .col-md-6.col-lg-4
+            .card.mb-3.shadow
+              img.card-img-top(src='../img/gomen_besiga.jpg' alt='Gomen Besiga')
+              .card-body
+                h4.card-title.font-weight-bold Hamli Mis Siga
+                p.card-text
+                  | Lamb cubes,collard greens and onions gently cooked in butter with just a hint of cardamom. Served with injera(flat bread) or kita(chapati)
+                p.text-center.product-price
+                  a(href='#') $19.99
+                p.text-center.product-order
+                  a(href='#') Order Here
+          .col-md-6.col-lg-4
+            .card.mb-3.shadow
+              img.card-img-top(src='../img/zilzil_tibis.jpg' alt='Jay')
+              .card-body
+                h4.card-title.font-weight-bold Zilzil Tibsi
+                p.card-text
+                  | Strips of charbroiled rib eye beef seasoned with garlic, black pepper, onion, green chilies with mitmita(hot papper) sauce. Served with ingera or bread.
+                p.text-center.product-price
+                  a(href='#') $19.99
+                p.text-center.product-order
+                  a(href='#') Order Here
+          .col-md-6.col-lg-4
+            .card.mb-3.shadow
+              img.card-img-top(src='../img/shiro.jpg' alt='Shiro')
+              .card-body
+                h4.card-title.font-weight-bold Shiro Wot
+                p.card-text
+                  | Spicy shiro (powedered chikpea) is cooked in the traditional style. You can order Shiro as a vegeterian dish and it comes in a taditional clay pot or in a bowl.
+                p.text-center.product-price
+                  a(href='#') $19.99
+                p.text-center.product-order
+                  a(href='#') Order Here
+        
+  // footer area
+  footer.text-center.text-white
+    // Grid container
+    .container.pt-4
+      // Section: Social media
+      section.mb-4
+        // Instagram
+        a.btn.btn-primary.btn-floating.m-1(style='background-color: #ac2bac;' href='https://www.instagram.com/rahwa_netsereab/' role='button')
+          i.fab.fa-instagram
+        // /Instagram
+        // Linkedin
+        a.btn.btn-primary.btn-floating.m-1(style='background-color: #0082ca;' href='https://www.linkedin.com/in/rahwa-mehreteab/' role='button')
+          i.fab.fa-linkedin-in
+        // /Linkedin
+        // Github
+        a.btn.btn-primary.btn-floating.m-1(style='background-color: #333333;' href='https://github.com/Rahwa-n' role='button')
+          i.fab.fa-github
+        // /Github
+        br
+        br
+        a.mail.text-white(href='mailto:rahwa@example.com?subject=About the traditional food')
+          i.fa.fa-envelope(style='font-size:24px;')
+          | Click here to send us an email
+      // Section: Social media
+    // Grid container
+    // Copyright
+    .text-center.text-white.p-3
+      | Copyright &copy; Eritrean Traditional Food 2021
+    // Copyright
+  // Optional JavaScript
+  // jQuery first, then Popper.js, then Bootstrap JS
+  script(src='https://code.jquery.com/jquery-3.2.1.slim.min.js' integrity='sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN' crossorigin='anonymous')
+  script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js' integrity='sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4' crossorigin='anonymous')
+  script(src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js' integrity='sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1' crossorigin='anonymous')

@@ -1,0 +1,162 @@
+doctype html
+html(lang='en')
+head
+  // Required meta tags
+  meta(charset='utf-8')
+  meta(name='description' content='')
+  meta(http-equiv='X-UA-Compatible' content='IE=edge')
+  meta(name='viewport' content='width=device-width, initial-scale=1, shrink-to-fit=no')
+  // The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags
+  // Title
+  title Eritrean Traditional Food
+  // Favicon
+  link(rel='icon' href='../img/favicon-32x32.png')
+  // google font
+  link(href='https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap' rel='stylesheet')
+  // Font Awesome icons (free version)
+  script(src='https://use.fontawesome.com/releases/v5.13.0/js/all.js' crossorigin='anonymous')
+  // Style CSS
+  link(rel='stylesheet' href='https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css')
+  link(rel='stylesheet' href='css/style.css')
+  link(rel='icon' type='image/png' href='../img/logo_edited1.png')
+// navigation
+nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
+  a.navbar-brand(href='../index.pug')
+    img.logo.my-2(src='../img/logo_edited1.png' alt='logo')
+  button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbarNav' aria-controls='navbarNav' aria-expanded='false' aria-label='Toggle navigation')
+    span.navbar-toggler-icon
+  #navbarNav.collapse.navbar-collapse
+    ul.navbar-nav
+      li.nav-item
+        a.nav-link(href='recipe.pug') Recipes
+      li.nav-item
+        a.nav-link(href='user.pug') Users
+      li.nav-item
+        a.nav-link(href='order.pug') Orders
+      li.nav-item
+        a.nav-link.active(href='categories.pug') Categories
+      li.nav-item
+        a.nav-link(href='service.pug') Services
+      li.nav-item
+        a.nav-link(href='delivery.pug') Delivery
+      li.nav-item
+        a.nav-link(href='#') Logout
+// end of navigation
+// page content goes here
+.container
+  h1
+    | Table Name: 
+    em Order
+  // this table displays all the users/ admin or not
+  // button to go to form to add aonther user
+  p
+    a(style='color: white;' href='#')
+      .btn.btn-success Add User +
+  // form to search for users by name
+  form(method='GET' action='#' style='margin-bottom: 25px')
+    .input-group
+      input.form-control(type='text' name='query' placeholder='Search Users')
+      span.input-group-btn
+        button.btn.btn-default(type='submit')
+          span.glyphicon.glyphicon-search
+  table.table.table-striped
+    // this is the table
+    thead.thead-dark
+      tr
+        th(scope='col') Order ID
+        th(scope='col') User ID
+        th(scope='col') Billing Address
+        th(scope='col') Shipping Address
+        th(scope='col') Subtotal
+        th(scope='col') Total
+        th(scope='col') Edit
+        th(scope='col') Delete
+    // foreaach loop to iterate all the users
+    tbody
+      tr
+        th(scope='row') 1
+        th
+        td
+        td
+        td
+        td
+        td
+          p
+            a.btn.btn-primary(href='#') Edit
+        td
+          form.delete(onsubmit="return confirm('Do you really want to delete this record?')" action='#' method='post')
+            input(type='hidden' name='_method' value='DELETE')
+            input(type='hidden' name='id' value='1')
+            button.btn.btn-danger(type='submit') Delete
+    tbody
+      tr
+        th(scope='row') 2
+        th
+        td
+        td
+        td
+        td
+        td
+          p
+            a.btn.btn-primary(href='#') Edit
+        td
+          form.delete(onsubmit="return confirm('Do you really want to delete this record?')" action='#' method='post')
+            input(type='hidden' name='_method' value='DELETE')
+            input(type='hidden' name='id' value='1')
+            button.btn.btn-danger(type='submit') Delete
+    tbody
+      tr
+        th(scope='row') 3
+        th
+        td
+        td
+        td
+        td
+        td
+          p
+            a.btn.btn-primary(href='#') Edit
+        td
+          form.delete(onsubmit="return confirm('Do you really want to delete this record?')" action='#' method='post')
+            input(type='hidden' name='_method' value='DELETE')
+            input(type='hidden' name='id' value='1')
+            button.btn.btn-danger(type='submit') Delete
+    tbody
+      tr
+        th(scope='row') 4
+        th
+        td
+        td
+        td
+        td
+        td
+          p
+            a.btn.btn-primary(href='#') Edit
+        td
+          form.delete(onsubmit="return confirm('Do you really want to delete this record?')" action='#' method='post')
+            input(type='hidden' name='_method' value='DELETE')
+            input(type='hidden' name='id' value='1')
+            button.btn.btn-danger(type='submit') Delete
+    tbody
+      tr
+        th(scope='row') 5
+        th
+        td
+        td
+        td
+        td
+        td
+          p
+            a.btn.btn-primary(href='#') Edit
+        td
+          form.delete(onsubmit="return confirm('Do you really want to delete this record?')" action='#' method='post')
+            input(type='hidden' name='_method' value='DELETE')
+            input(type='hidden' name='id' value='1')
+            button.btn.btn-danger(type='submit') Delete
+  // end of the table
+// end of page content
+// Footer Area
+// footer
+script(src='https://code.jquery.com/jquery-3.4.1.slim.min.js' integrity='sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n' crossorigin='anonymous')
+script(src='https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js' integrity='sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo' crossorigin='anonymous')
+script(src='https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js' integrity='sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6' crossorigin='anonymous')
+// Footer Area
