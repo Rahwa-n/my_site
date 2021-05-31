@@ -19,12 +19,12 @@ mongoClient.connect(dburl,function(err,client){
  * adding product array and looping throught each
  */
 const menus = [
-    { id: 1, name: 'Siga Tibsi', image: 'siga_tibis.jpg', description: 'enjera be siga wet'},
-    { id: 2, name: 'Kitfo', image: 'kitfo.jpg', description: 'Siga tibis be enjhera' },
-    { id: 3, name: 'Veggie Combo', image: 'veggie_combo.jpg' },
-    { id: 4, name: 'Hamli Mis Siga', image: 'gomen_besiga.jpg' },
-    { id: 5, name: 'Zilzil Tibsi', image: 'zilzil_tibis.jpg' },
-    { id: 6, name: 'Shiro', image: 'shiro.jpg' }
+    { id: 1, name: 'Siga Tibsi', image: 'siga_tibis.jpg', description: 'Lamb cooked with spicy hot pepper, Tomato and spicy Eritrean sauce.'},
+    { id: 2, name: 'Kitfo', image: 'kitfo.jpg', description: 'Fresh lean ground beef marinated with spicy butter, chilli pepper, cottage.' },
+    { id: 3, name: 'Veggie Combo', image: 'veggie_combo.jpg', description: 'Our best vegetable cobination; Red lintels, Yellow spilit, collard gree, beets with potato, cabbage' },
+    { id: 4, name: 'Hamli Mis Siga', image: 'gomen_besiga.jpg', description: 'Lamb cubes,collard greens and onions gently cooked in butter with just a hint of cardamom. Served with injera(flat bread) or kicha(chapati)' },
+    { id: 5, name: 'Zilzil Tibsi', image: 'zilzil_tibis.jpg', description: 'Strips of charbroiled rib eye beef seasoned with garlic, black pepper, onion, green chilies with mitmita(hot papper) sauce. Served with ingera or bread.' },
+    { id: 6, name: 'Shiro', image: 'shiro.jpg', description: 'Spicy shiro (powedered chikpea) is cooked in the traditional style. You can order Shiro as a vegeterian dish and it comes in a taditional clay pot or in a bowl.' }
 ]
 
 
