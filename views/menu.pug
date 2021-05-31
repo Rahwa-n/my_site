@@ -47,23 +47,22 @@ block content
   // menu
   section.menu-area.mb-r
     .container
-      .row  #menu
+      .row
         h1.mb-5.info Travel to Eritrea through your test bads!  
-      each menu in menus
         .row
-          .col-md-6.col-lg-4
-            .card.mb-3.shadow
-              a(href="/menus/" + menu.id) 
-              img.card-img-top(src='/img/' + menu.image)
-              .card-body
-                h4.card-title.font-weight-bold=menu.name
-                p.card-text
-                  | Lamb cooked with spicy hot pepper, Tomato and spicy Eritrean sauce. Served
-                  | with home made cottage cheese and salad.
-                p.text-center.product-price
-                  a(href='#') $17.99
-                p.text-center.product-order
-                  a(href='#') Order Here
+          each menu in menus
+            .col-md-6.col-lg-4
+              .card.mb-3.shadow
+                a(href="/menus/" + menu.id) 
+                img.card-img-top(src='/img/' + menu.image)
+                .card-body
+                  h4.card-title.font-weight-bold=menu.name
+                  p.card-text
+                    | #{menu.description}
+                  p.text-center.product-price
+                    a(href='#') $17.99
+                  p.text-center.product-order
+                    a(href='#') Order Here
           
         
   // footer area

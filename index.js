@@ -19,8 +19,8 @@ mongoClient.connect(dburl,function(err,client){
  * adding product array and looping throught each
  */
 const menus = [
-    { id: 1, name: 'Siga Tibsi', image: 'siga_tibis.jpg' },
-    { id: 2, name: 'Kitfo', image: 'kitfo.jpg' },
+    { id: 1, name: 'Siga Tibsi', image: 'siga_tibis.jpg', description: 'enjera be siga wet'},
+    { id: 2, name: 'Kitfo', image: 'kitfo.jpg', description: 'Siga tibis be enjhera' },
     { id: 3, name: 'Veggie Combo', image: 'veggie_combo.jpg' },
     { id: 4, name: 'Hamli Mis Siga', image: 'gomen_besiga.jpg' },
     { id: 5, name: 'Zilzil Tibsi', image: 'zilzil_tibis.jpg' },
