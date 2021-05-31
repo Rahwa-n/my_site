@@ -24,9 +24,15 @@ const menus = [
     { id: 3, name: 'Veggie Combo', image: 'veggie_combo.jpg', description: 'Our best vegetable cobination; Red lintels, Yellow spilit, collard gree, beets with potato, cabbage' },
     { id: 4, name: 'Hamli Mis Siga', image: 'gomen_besiga.jpg', description: 'Lamb cubes,collard greens and onions gently cooked in butter with just a hint of cardamom. Served with injera(flat bread) or kicha(chapati)' },
     { id: 5, name: 'Zilzil Tibsi', image: 'zilzil_tibis.jpg', description: 'Strips of charbroiled rib eye beef seasoned with garlic, black pepper, onion, green chilies with mitmita(hot papper) sauce. Served with ingera or bread.' },
-    { id: 6, name: 'Shiro', image: 'shiro.jpg', description: 'Spicy shiro (powedered chikpea) is cooked in the traditional style. You can order Shiro as a vegeterian dish and it comes in a taditional clay pot or in a bowl.' }
-]
+    { id: 6, name: 'Shiro', image: 'shiro.jpg', description: 'Spicy shiro (powedered chikpea) is cooked in the traditional style. You can order Shiro as a vegeterian dish and it comes in a taditional clay pot or in a bowl.' },
+    { id: 7, name: 'Beyanetu', image: 'beyanetu2.jpg', description: 'A sampling of 8 of our most popular vegetarian stews, meat stews, served on a platter of injera with lettuce, tomato and jalapeno salad  '},
+    { id: 8, name: 'Derho Tsebhi', image: 'dorowet.jpg', description: 'Spicy chicken stew slowly cooked in a mixture of diced onion, garlic, and berbere. Comes with thigh, drumstick and boiled egg. Served with injera. ' },
+    { id: 9, name: 'Shekila Tibisi', image: 'shekila_tibis.jpg', description: 'Pan fried goat meat with ribs, well-seasoned with rosemary, and green paper. Served with injera and salad' },
+    { id: 10, name: 'Ater kik Alicha', image: 'aterkik.jpg', description: 'Yellow split peas stewed in a special sauce with onions, garlic, turmeric, and ginger. Served with injera(flat bread), salad and homemade pittas or bread' },
+    { id: 11, name: 'Gored Gored', image: 'gored_gored.jpg', description: 'Very lean beef, warmed in spiced butte rare or medium, cooked with mitmita sauce, served with Salad with injera or bread ' },
+    { id: 12, name: 'Quanta Firfir', image: 'quanta_firfir.jpg', description: 'Dried beef stewed in berbere and sauce and black cardamom and other mixed spices. Served with injera(flat brad) and mixed salad.' }
 
+]
 
 /**
  * setting the pug engine to load the page
@@ -100,9 +106,23 @@ app.get('/login/', function(req,res){
 });
 
 /**
+ * This is to add new menu and it in to menu page
+ * and redirect to the menu page and add to database
+ */
+app.post('/menus', urlEncodedParser, function(req, res){
+    const newId = menus[menus.length-1].id + 1 ;
+    const newSuperHero = {
+      id:newId,
+      name: req.body.menu
+    }
+    menus.push(newMenu);
+    res.redirect('/');
+  });
+
+/**
  * this is a local server listen in port number 3000
  * and it can be added other port number too
  */
 app.listen(3000, function(){
-    console.log('Node.js Project Started on port ${port}');
+    console.log(`Node.js Project Started on port ${port}`);
 });
