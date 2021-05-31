@@ -93,7 +93,7 @@ body {
 .list-group{
   font-size: 1rem;
 }
-/*about h1 styele*/
+/*about page h1 styele*/
 .mb-5{
   margin-top: 150px;
 }
@@ -102,7 +102,8 @@ body {
 .about_txt{
   margin-left: 35px;
 }
-/*menu page the first p style*/
+
+/*menu page the first h1 style*/
 .info{
   text-align: center;
   margin-top: 150px;
@@ -111,14 +112,14 @@ body {
   color: #000;
   text-shadow:  1px 1px #fff;
 }
-/*price menu page button style*/
+/* menu page price button style*/
 .product-price{
   background-color: #e3d159;
   font-weight: 700;
   cursor: pointer;  
 }
 
-/*order menu page button style*/
+/*menu page order button style*/
 .product-order{
   background-color: deepskyblue;
   font-weight: 700;

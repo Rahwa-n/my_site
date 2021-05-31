@@ -47,79 +47,23 @@ block content
   // menu
   section.menu-area.mb-r
     .container
-      #menu.row
-        // <h1 id="menus" class="display-4 text-center my-5 text-black">Menu</h1>
-        h1.mb-5.info Travel to Eritrea through your test bads!
+      .row
+        h1.mb-5.info Travel to Eritrea through your test bads!  
         .row
-          .col-md-6.col-lg-4
-            .card.mb-3.shadow
-              img.card-img-top(src='../img/siga_tibis.jpg' alt='Siga Tibis')
-              .card-body
-                h4.card-title.font-weight-bold Siga Tibsi
-                p.card-text
-                  | Lamb cooked with spicy hot pepper, Tomato and spicy Eritrean sauce. Served
-                  | with home made cottage cheese and salad.
-                p.text-center.product-price
-                  a(href='#') $17.99
-                p.text-center.product-order
-                  a(href='#') Order Here
-          .col-md-6.col-lg-4
-            .card.mb-3.shadow
-              img.card-img-top(src='../img/kitfo.jpg' alt='Kitfo')
-              .card-body
-                h4.card-title.font-weight-bold Kitfo
-                p.card-text
-                  | Fresh lean ground beef marinated with spicy butter, chilli pepper, cottage
-                  | cheese with spinach and side dish salad and chapati(kita).
-                p.text-center.product-price
-                  a(href='#') $19.99
-                p.text-center.product-order
-                  a(href='#') Order Here
-          .col-md-6.col-lg-4
-            .card.mb-3.shadow
-              img.card-img-top(src='../img/veggie_combo.jpg' alt='Veggie Combo')
-              .card-body
-                h4.card-title.font-weight-bold Veggie Combo
-                p.card-text
-                  | Our best vegetable cobination; Red lintels, Yellow spilit, collard gree, beets with potato, cabbage
-                  | and a combo of peas and lentil sauces.
-                p.text-center.product-price
-                  a(href='#') $19.99
-                p.text-center.product-order
-                  a(href='#') Order Here
-          .col-md-6.col-lg-4
-            .card.mb-3.shadow
-              img.card-img-top(src='../img/gomen_besiga.jpg' alt='Gomen Besiga')
-              .card-body
-                h4.card-title.font-weight-bold Hamli Mis Siga
-                p.card-text
-                  | Lamb cubes,collard greens and onions gently cooked in butter with just a hint of cardamom. Served with injera(flat bread) or kita(chapati)
-                p.text-center.product-price
-                  a(href='#') $19.99
-                p.text-center.product-order
-                  a(href='#') Order Here
-          .col-md-6.col-lg-4
-            .card.mb-3.shadow
-              img.card-img-top(src='../img/zilzil_tibis.jpg' alt='Jay')
-              .card-body
-                h4.card-title.font-weight-bold Zilzil Tibsi
-                p.card-text
-                  | Strips of charbroiled rib eye beef seasoned with garlic, black pepper, onion, green chilies with mitmita(hot papper) sauce. Served with ingera or bread.
-                p.text-center.product-price
-                  a(href='#') $19.99
-                p.text-center.product-order
-                  a(href='#') Order Here
-          .col-md-6.col-lg-4
-            .card.mb-3.shadow
-              img.card-img-top(src='../img/shiro.jpg' alt='Shiro')
-              .card-body
-                h4.card-title.font-weight-bold Shiro Wot
-                p.card-text
-                  | Spicy shiro (powedered chikpea) is cooked in the traditional style. You can order Shiro as a vegeterian dish and it comes in a taditional clay pot or in a bowl.
-                p.text-center.product-price
-                  a(href='#') $19.99
-                p.text-center.product-order
-                  a(href='#') Order Here
+          each menu in menus
+            .col-md-6.col-lg-4
+              .card.mb-3.shadow
+                a(href="/menus/" + menu.id) 
+                img.card-img-top(src='/img/' + menu.image)
+                .card-body
+                  h4.card-title.font-weight-bold=menu.name
+                  p.card-text
+                    | #{menu.description}
+                  p.text-center.product-price
+                    a(href='#') $17.99
+                  p.text-center.product-order
+                    a(href='#') Order Here
+          
         
   // footer area
   footer.text-center.text-white
