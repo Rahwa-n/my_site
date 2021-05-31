@@ -47,11 +47,10 @@ block content
   // menu
   section.menu-area.mb-r
     .container
-      #menu.row
-        // <h1 id="menus" class="display-4 text-center my-5 text-black">Menu</h1>
-        h1.mb-5.info Travel to Eritrea through your test bads!
+      .row  #menu
+        h1.mb-5.info Travel to Eritrea through your test bads!  
+      each menu in menus
         .row
-        each menu in menus
           .col-md-6.col-lg-4
             .card.mb-3.shadow
               a(href="/menus/" + menu.id) 
