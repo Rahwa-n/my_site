@@ -19,14 +19,6 @@ const menus = [
     { id: 6, name: 'Shiro', image: 'shiro.jpg' }
 ]
 
-const recipts = [
-    { id: 1, name: 'Siga Tibsi', image: 'siga_tibis.jpg' },
-    { id: 2, name: 'Kitfo', image: 'kitfo.jpg' },
-    { id: 3, name: 'Veggie Combo', image: 'veggie_combo.jpg' },
-    { id: 4, name: 'Hamli Mis Siga', image: 'gomen_besiga.jpg' },
-    { id: 5, name: 'Zilzil Tibsi', image: 'zilzil_tibis.jpg' },
-    { id: 6, name: 'Shiro', image: 'shiro.jpg' }
-]
 
 /**
  * setting the pug engine to load the page
@@ -71,22 +63,6 @@ app.get('/register/', function(req,res){
 app.get('/login/', function(req,res){
     res.render('login', {});
 });
-
-
-app.get('/recipt', function(req,res){
-    res.render('recipt',{recipts: recipts});
-});
-
-app.get('/recipt/:id', function(req,res){
-    const selectedId = req.params.id;
-    let selectedMenu = recipts.filter(recipt => {
-      return recipts.id == selectedId;
-    });
-    selectedMenu = selectedMenu[0];
-    res.render('recipt', {menu:selectedMenu});
-}); 
-
-
 
 
 app.listen(3000, function(){

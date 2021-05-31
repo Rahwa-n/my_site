@@ -51,12 +51,12 @@ block content
         .row
           .col-md-6.col-lg-4
             .card.mb-3.shadow
-           each recipt in recipts
+        each recipt in recipts
             a(href="/recipt/" + recipt.id) 
               img.card-img-top(src='/img/' + recipt.image)
-              h4.card-title=recipt.name
+    
               .card-body
-                h4.card-title.font-weight-bold Siga Tibsi
+                h4.card-title.font-weight-bold=recipt.name
                 p.card-text
                   | Lamb cooked with spicy hot pepper, Tomato and spicy Eritrean sauce. Served
                   | with home made cottage cheese and salad.
