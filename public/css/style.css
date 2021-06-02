@@ -245,19 +245,11 @@ td {
 /*} end of table style*/
       
 }
- /* Container holding the image and the text */
-      #container {
-        position: absolute;
-        text-align: center;
-        color: white;
-      }
-            /* Centered text */
-      #centered {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-      }
+.UserView {
+  background: url("https://cdn.auth0.com/blog/whatabyte-portal/patio.jpeg") left
+    bottom;
+  background-size: cover;
+}
       
 
 

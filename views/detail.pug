@@ -1,0 +1,54 @@
+extends ./layout.pug
+block content
+
+  nav.navbar.navbar-expand-md.navbar-light.justify-content-between.fixed-top
+    a.navbar-brand(href='/')
+       img.logo.my-2(src='../img/logo_edited1.png' alt='logo')
+    button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbarsExampleDefault' aria-controls='navbarsExampleDefault' aria-expanded='false' aria-label='Toggle navigation')
+      span.navbar-toggler-icon
+    #navbarsExampleDefault.collapse.navbar-collapse.justify-content-end
+      ul.navbar-nav
+        li.nav-item
+          a.nav-link(href='/')
+            | Home
+            span.sr-only (current)
+        li.nav-item.active
+          a.nav-link(href='/about') About
+        li.nav-item
+          a.nav-link(href='/menu') Menu
+        li.nav-item
+          a.nav-link(href='/services') Services
+        li.nav-item
+          a.nav-link(href='/contact.') Contact
+        li.nav-item
+          a.nav-link(href='/register') Register
+        li.nav-item
+          a.nav-link(href='/login') Login
+      .ml-3.top-search
+        util search
+        form.form-inline(method='get' action='')
+          input(type='hidden' name='_token' value='')
+          input#query.form-control.searchbox(type='search' name='query' placeholder='Search')
+          span.input-group-btn
+            button.btn.btn-outline-info.my-2.my-sm-0.text-white.bu(type='submit') Search
+      .menu-top-wrapper
+        .ml-3.acct_user.d-flex
+           util profile
+          a(href='#')
+            .circle1
+              .user_image
+                i.fas.fa-user-alt.text-white
+        .ml-2.acct_srch.d-flex
+           shopping cart
+          .ml-2.circle
+            a(href='#')
+              i.fas.fa-sh
+      img(src='/img/' + menu.image )
+      .card-body
+        h4.card-title.font-weight-bold=menu.name
+        p.card-text
+          | #{menu.description}
+        p.text-center.product-price
+          a(href='#') $17.99
+        p.text-center.product-order
+          a(href='#') Order Here
