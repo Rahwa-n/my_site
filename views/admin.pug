@@ -48,7 +48,7 @@ block content
   section.menu-area.mb-r
     .container
       .row
-        h1.mb-5.info Travel to Eritrea through your test bads!  
+        h1.mb-5.info Admin CRUD Page  
         .row
           each menu in menus
             .col-md-6.col-lg-4
@@ -63,7 +63,8 @@ block content
                     //- a(href='#') $17.99
                   p.text-center.product-order
                     a(href='#') Order Here 
-                  a(href="/detail/" + menu._id) Detail 
+                  a(href="/edit/" + menu._id) Edit | 
+                  a(href="/delete/" + menu._id) Delete
           
  
   // footer area

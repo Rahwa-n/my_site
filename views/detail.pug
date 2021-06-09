@@ -1,0 +1,12 @@
+extends ./layout.pug
+
+block content
+  h1 Menu Detail Page
+    br
+    img(src='/img/' + menus.image)
+    h2= menus.name
+    p= menus.description
+    p= menus.price 
+    br
+    a(href= "/menu") Menu
+    

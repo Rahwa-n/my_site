@@ -1,0 +1,56 @@
+nav.navbar.navbar-expand-md.navbar-light.justify-content-between.fixed-top
+    a.navbar-brand(href='/')
+      img.logo.my-2(src='../img/logo_edited1.png' alt='logo')
+    button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbarsExampleDefault' aria-controls='navbarsExampleDefault' aria-expanded='false' aria-label='Toggle navigation')
+      span.navbar-toggler-icon
+    #navbarsExampleDefault.collapse.navbar-collapse.justify-content-end
+      ul.navbar-nav
+        li.nav-item
+          a.nav-link(href='/')
+            | Home
+            span.sr-only (current)
+        li.nav-item
+          a.nav-link(href='/about') About
+        li.nav-item.active
+          a.nav-link(href='/menu') Menu
+        li.nav-item
+          a.nav-link(href='/services') Services
+        li.nav-item
+          a.nav-link(href='/contact') Contact
+        li.nav-item
+          a.nav-link(href='/register') Register
+        li.nav-item
+          a.nav-link(href='/login') Login
+      .ml-3.top-search
+        // util search
+        form.form-inline(method='get' action='')
+          input(type='hidden' name='_token' value='')
+          input#query.form-control.searchbox(type='search' name='query' placeholder='Search')
+          span.input-group-btn
+            button.btn.btn-outline-info.my-2.my-sm-0.text-white.bu(type='submit') Search
+      .menu-top-wrapper
+        .ml-3.acct_user.d-flex
+          // util profile
+          a(href='#')
+            .circle1
+              .user_image
+                i.fas.fa-user-alt.text-white
+        .ml-2.acct_srch.d-flex
+          // shopping cart
+          .ml-2.circle
+            a(href='#')
+              i.fas.fa-shopping-cart.text-white
+h1 Create New Menu  
+   
+.create-container
+  form(action="/menu", method="post" class="form")
+    input(type="hidden" name= "_id" value= menus._id)
+    input#file(type="file", placeholder="Menu Image", required="required", name="menuImage" accept="img/*")
+    input(type="text", placeholder="Menu Name", required="required", name="menuName")
+    input(type="text", placeholder="Menu Description", required="required", name="menuDescription")
+    input(type="text", placeholder="Menu Price", required="required", name="price")
+    br
+    br
+    p.create
+      button Create Menus
+       

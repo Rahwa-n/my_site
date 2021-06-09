@@ -239,25 +239,46 @@ td {
   display: table-cell;
   vertical-align: inherit;
 }
+/*create container style*/
+.create.container {
+  margin-top: 100px;
+  margin-left: 200px;
+}
 
+/*header style in edit menu page*/
+.head{
+  margin-top: 140px;
+  text-align: center;
+}
+
+/* edit form input space in between */
+.form input {
+  margin-right: 15px;
+}
+/*edit button in edit page style*/
+.edit button{
+  background-color: rgb(67, 67, 219);
+  color: #fff;
+  padding: 10px;
+  font-weight: bolder;
+}
+/*button in create page style*/
+.create button{
+  background-color: rgb(20, 148, 69);
+  color: #fff;
+  padding: 10px;
+  font-weight: bolder;
+}
 .section{
   background-color: #ccc;
 /*} end of table style*/
       
 }
- /* Container holding the image and the text */
-      #container {
-        position: absolute;
-        text-align: center;
-        color: white;
-      }
-            /* Centered text */
-      #centered {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-      }
+.UserView {
+  background: url("https://cdn.auth0.com/blog/whatabyte-portal/patio.jpeg") left
+    bottom;
+  background-size: cover;
+}
       
 
 
