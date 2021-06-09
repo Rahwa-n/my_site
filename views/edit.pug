@@ -1,9 +1,9 @@
 extends ./layout.pug
 block content
-
+  // navbar
   nav.navbar.navbar-expand-md.navbar-light.justify-content-between.fixed-top
     a.navbar-brand(href='/')
-       img.logo.my-2(src='../img/logo_edited1.png' alt='logo')
+      img.logo.my-2(src='../img/logo_edited1.png' alt='logo')
     button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbarsExampleDefault' aria-controls='navbarsExampleDefault' aria-expanded='false' aria-label='Toggle navigation')
       span.navbar-toggler-icon
     #navbarsExampleDefault.collapse.navbar-collapse.justify-content-end
@@ -12,14 +12,14 @@ block content
           a.nav-link(href='/')
             | Home
             span.sr-only (current)
-        li.nav-item.active
-          a.nav-link(href='/about') About
         li.nav-item
+          a.nav-link(href='/about') About
+        li.nav-item.active
           a.nav-link(href='/menu') Menu
         li.nav-item
           a.nav-link(href='/services') Services
         li.nav-item
-          a.nav-link(href='/contact.') Contact
+          a.nav-link(href='/contact') Contact
         li.nav-item
           a.nav-link(href='/register') Register
         li.nav-item
@@ -43,18 +43,25 @@ block content
           .ml-2.circle
             a(href='#')
               i.fas.fa-shopping-cart.text-white
+ 
   
-  div.View.UserView
-    h1.Banner Hello, #{userProfile.nickname}!
-    div.Message
-      div.Title
-        h3 Making Us the Best
-        h1 Client Profile
-      pre.Details=JSON.stringify(userProfile, null, 2)
-    div.NavButtons
-      a(href="/logout")
-        div.NavButton Log out
-
-        
-
-  
+  .container
+      #menu.row
+        h1.mb-5.head Edit and update Menu
+         
+        div.edit-container
+          form(action="/edit", method="post" class="form")
+            input(type="hidden" name="_id" value= menus._id)
+            input#file(type="file", placeholder="Menu Image", required="required", name="menuImage" accept="img/*")
+            input(type="text",placeholder="menu name", required="required", name="menuName" value= menus.name)
+            input(type="text",placeholder="description",required="required",name="menuDescription" value= menus.description)
+            input(type="text",placeholder="menu price", required="required", name="price" value= menus.price)
+            br
+            br
+            p.edit
+              button Update Menus
+            br
+            br
+            include ./create.pug 
+         
+          

@@ -7,6 +7,8 @@ const app = express();
 const port = 3000;
 //path to display images from the public folder
 const path = require("path");
+const multer = require('multer');
+
 /**
  * set up MongoDB url to connect with
  * This method accepts the MongoDB server address (url) and a callback function
@@ -19,32 +21,13 @@ mongoClient.connect(dburl,function(err,client){
 });
 
 /**
- * adding product array and looping throught each
- */
-// const menus = [
-//     { id: 1, name: 'Siga Tibsi', image: 'siga_tibis.jpg', description: 'Lamb cooked with spicy hot pepper, Tomato and spicy Eritrean sauce.'},
-//     { id: 2, name: 'Kitfo', image: 'kitfo.jpg', description: 'Fresh lean ground beef marinated with spicy butter, chilli pepper, cottage.' },
-//     { id: 3, name: 'Veggie Combo', image: 'veggie_combo.jpg', description: 'Our best vegetable cobination; Red lintels, Yellow spilit, collard gree, beets with potato, cabbage' },
-//     { id: 4, name: 'Hamli Mis Siga', image: 'gomen_besiga.jpg', description: 'Lamb cubes,collard greens and onions gently cooked in butter with just a hint of cardamom. Served with injera(flat bread) or kicha(chapati)' },
-//     { id: 5, name: 'Zilzil Tibsi', image: 'zilzil_tibis.jpg', description: 'Strips of charbroiled rib eye beef seasoned with garlic, black pepper, onion, green chilies with mitmita(hot papper) sauce. Served with ingera or bread.' },
-//     { id: 6, name: 'Shiro', image: 'shiro.jpg', description: 'Spicy shiro (powedered chikpea) is cooked in the traditional style. You can order Shiro as a vegeterian dish and it comes in a taditional clay pot or in a bowl.' },
-//     { id: 7, name: 'Beyanetu', image: 'beyanetu2.jpg', description: 'A sampling of 8 of our most popular vegetarian stews, meat stews, served on a platter of injera with lettuce, tomato and jalapeno salad  '},
-//     { id: 8, name: 'Derho Tsebhi', image: 'dorowet.jpg', description: 'Spicy chicken stew slowly cooked in a mixture of diced onion, garlic, and berbere. Comes with thigh, drumstick and boiled egg. Served with injera. ' },
-//     { id: 9, name: 'Shekila Tibisi', image: 'shekila_tibis.jpg', description: 'Pan fried goat meat with ribs, well-seasoned with rosemary, and green paper. Served with injera and salad' },
-//     { id: 10, name: 'Ater kik Alicha', image: 'aterkik.jpg', description: 'Yellow split peas stewed in a special sauce with onions, garlic, turmeric, and ginger. Served with injera(flat bread), salad and homemade pittas or bread' },
-//     { id: 11, name: 'Gored Gored', image: 'gored_gored.jpg', description: 'Very lean beef, warmed in spiced butte rare or medium, cooked with mitmita sauce, served with Salad with injera or bread ' },
-//     { id: 12, name: 'Quanta Firfir', image: 'quanta_firfir.jpg', description: 'Dried beef stewed in berbere and sauce and black cardamom and other mixed spices. Served with injera(flat brad) and mixed salad.' }
-
-// ]
-
-/**
  * setting the pug engine to load the page
  * to use the css, js, and img file from the public folder to make it dynamic
  * to get the home page and display itby calling the function requeste and response
  */
 app.set('view engine', 'pug');
-//add the static public folder and configure express to use it such as css, js, img
-app.use(express.static('public'));
+//set the static public folder and configure express to use it such as css, js, img
+app.use(express.static(path.join(__dirname,'public')));
 
 /**
  *this is the root page route the index page 
@@ -52,8 +35,8 @@ app.use(express.static('public'));
 app.get('/', function(req,res){
     //connection to the database
   mongoClient.connect(dburl,function(err,client){
-    const db = client.db('foods');
-    const collection = db.collection('menu');
+    const myDb = client.db('foods');
+    const collection = myDb.collection('menus');
     collection.find({}).toArray((error, documents)=>{
       console.log(documents);
       //this is to run the data after to close the database
@@ -71,44 +54,147 @@ app.get('/about/', function(req,res){
     res.render('about', {});
 });
 
-/**route for menu or product page
- *  and render the page
+/**route for menu page
+ *  and render the page and connect with the database
  */
 app.get('/menu', function(req,res){
-    res.render('menu',{});
+  mongoClient.connect(dburl, function(err,client){
+    const myDb = client.db('foods');
+    const collection = myDb.collection('menus');
+    collection.find().toArray(function(error,documents){
+      client.close();
+      res.render('menu', {menus:documents});
+    });
+  });
 });
+
+
 
 /** a route for menu page and and filter menus
  * and open in detail view the selected menu and render it
+ * and alos connecting with the database
  */
 app.get('/menu/:id', function(req,res){
   const selectedId = req.params.id;
   mongoClient.connect(dburl, function(err,client){
-    const db = client.db('foods');
-    const collection = db.collection('menus');
+    const myDb = client.db('foods');
+    const collection = myDb.collection('menus');
     const filter = {_id: ObjectID(selectedId)};
     collection.find(filter).toArray(function(error,documents){
       var selectedMenu = documents[0];
       client.close();
-      res.render('menu', {menu:selectedMenu});
+      res.render('menu', {menus:selectedMenu});
     })
   });
 });
+
+/**
+ * edit menu calling the server and connect to the database 
+ * and edit the menus then display in menu page
+ */
+app.get('/edit/:id', function(req,res){
+  const selectedId = req.params.id;
+  mongoClient.connect(dburl,function(err,client){
+    const myDb = client.db('foods');
+    const collection = myDb.collection('menus');
+    const filter = {_id: ObjectID(selectedId)}; 
+    collection.find(filter).toArray(function(error,documents){
+      var selectedMenu = documents[0];
+      client.close();
+      res.render('edit',{menus:selectedMenu});
+    });
+  });
+});
+
+//update menu
+app.post('/edit', urlEncodedParser, function(req, res){
+  const selectedId = req.body._id;
+  const filter = {_id: ObjectID(selectedId)};
+  const set = {$set: {image: req.body.menuImage, name: req.body.menuName, description: req.body.menuDescription, price: req.body.price}};
+  mongoClient.connect(dburl,function(err,client){
+    const myDb = client.db('foods');
+    const collection = myDb.collection('menus');
+    collection.updateOne(filter,set,(err,result)=>{
+      client.close();
+      res.redirect('/edit/' + selectedId);
+    });
+  });
+});
+/**
+ * this is to create a new menu and after updating
+ * adding it to the backend which is the database
+ * also displaying in menu page
+ */
 app.post('/menu', urlEncodedParser, function(req,res){
   const newMenu = {
-    name: req.body.menu,
-    description: req.body.description
+    image: req.body.menuImage,
+    name: req.body.menuName,
+    description: req.body.menuDescription,
+    price: req.body.price
   }
   mongoClient.connect(dburl, function(err, client){
-    const db = client.db('foods');
-    const collection = db.collection('menus');
+    const myDb = client.db('foods');
+    const collection = myDb.collection('menus');
     collection.insertOne(newMenu, function(err,result){
       client.close();
-      res.redirect('/');
+      res.redirect('/menu');
     })
   })
 }); 
 
+/**
+ * This is to update the existing menu in to the page
+ * and redirect to the menu page and add to database
+ */
+app.post('/menu', urlEncodedParser, function(req, res){
+  const selectedId = req.body._id;
+  const filter = {_id: ObjectID(selectedId)};
+  const set = {$set: {name: req.body.menuName, description: req.body.menuDescription}};
+  mongoClient.connect(dburl,function(err,client){
+    const myDb = client.db('foods');
+    const collection = myDb.collection('menus');
+    collection.updateOne(filter,set, function(err,result){
+      client.close();
+      res.redirect('/edit/' + selectedId);
+    });
+  });
+});
+
+/**
+ * route for detail page menu to display details and insert and edit then update 
+ */
+ app.get('/detail/:id', function(req, res){
+  const selectedId = req.params.id;
+  mongoClient.connect(dburl,function(err,client){
+    const myDb = client.db('foods');
+    const collection = myDb.collection('menus');
+    const filter = {_id: ObjectID(selectedId)};
+    collection.find(filter).toArray(function(err,documents){
+      var selectedMenu = documents[0];
+      client.close();
+      res.render('detail', {menus:selectedMenu});
+    });
+  });
+});
+
+
+/**
+ * this is the route for deleting the menu
+ * from the menu page and at the same time 
+ * from database and page redirect to menu page
+ */
+app.get('/delete/:id',function(req,res){
+  const selectedId = req.params.id; 
+  mongoClient.connect(dburl,function(err,client){       
+    const myDb = client.db('foods');
+    const collection = myDb.collection('menus');    
+    const filter = {_id: ObjectID(selectedId)};
+    collection.deleteOne(filter, function(err,result){
+      client.close();
+      res.redirect('/menu');
+    });    
+  });
+});
 /**
  * add a route for services page and 
  * render it to diplay the content
@@ -141,23 +227,10 @@ app.get('/login/', function(req,res){
     res.render('login', {});
 });
 
-/**
- * This is to add new menu and it in to menu page
- * and redirect to the menu page and add to database
- */
-app.post('/menus', urlEncodedParser, function(req, res){
-    const newId = menus[menus.length-1].id + 1 ;
-    const newSuperHero = {
-      id:newId,
-      name: req.body.menu
-    }
-    menus.push(newMenu);
-    res.redirect('/');
-  });
-
 app.get('/user', (req, res) => {
   res.render("user", { title: "Profile", userProfile: { nickname: "Auth0" } });
 });
+
 
 /**
  * this is a local server listen in port number 3000
@@ -165,4 +238,15 @@ app.get('/user', (req, res) => {
  */
 app.listen(3000, function(){
     console.log(`Node.js Project Started on port ${port}`);
+});
+
+app.get('/admin', function(req,res){
+  mongoClient.connect(dburl, function(err,client){
+    const myDb = client.db('foods');
+    const collection = myDb.collection('menus');
+    collection.find().toArray(function(error,documents){
+      client.close();
+      res.render('admin', {menus:documents});
+    });
+  });
 });
