@@ -1,12 +1,15 @@
 extends ./layout.pug
 
 block content
-  h1 Menu Detail Page
-    br
-    img(src='/img/' + menus.image)
-    h2= menus.name
-    p= menus.description
-    p= menus.price 
-    br
-    a(href= "/menu") Menu
+
+  .container
+    #menu.row
+      h1 Menu Detail Page
+      div.edit-container
+        img(src='/img/' + menus.image)
+        br
+        h1= menus.name
+        p= menus.description
+        p= menus.price 
+        a(href= "/menu") Menu
     
