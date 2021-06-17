@@ -22,7 +22,7 @@ dotenv.config();
  * This method accepts the MongoDB server address (url) and a callback function
  */
 //const dburl = "mongodb://localhost:27017"
-const dburl = "mongodb+srv://${.env.DB_USERNAME}:{.env.DB_PASSWORD}@cluster0.yksef.mongodb.net/foods?retryWrites=true&w=majority"
+const dburl = "mongodb+srv://rahwaDB:Rahwa1977@cluster0.yksef.mongodb.net/foods?retryWrites=true&w=majority"
 const bodyParser = require('body-parser');
 const urlEncodedParser = bodyParser.urlencoded({extended:false});
 mongoClient.connect(dburl,function(err,client){
