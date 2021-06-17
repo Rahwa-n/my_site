@@ -26,15 +26,14 @@ block content
           a.nav-link(href='/login') Login
       .ml-3.top-search
         // util search
-        form.form-inline(method='get' action='')
-          input(type='hidden' name='_token' value='')
+        form.form-inline(method='get' action='/login')
           input#query.form-control.searchbox(type='search' name='query' placeholder='Search')
           span.input-group-btn
             button.btn.btn-outline-info.my-2.my-sm-0.text-white.bu(type='submit') Search
       .menu-top-wrapper
         .ml-3.acct_user.d-flex
           // util profile
-          a(href='#')
+          a(href='/profile')
             .circle1
               .user_image
                 i.fas.fa-user-alt.text-white
@@ -52,7 +51,7 @@ block content
           .card.lo_form
             .card-header Login
             .card-body
-              form(method='POST' action='')
+              form(#login method='POST' action='/login')
                 input(type='hidden' name='_token' value='')
                 .form-group.row
                   label.col-md-4.col-form-label.text-md-right(for='email') E-Mail Address
@@ -106,6 +105,11 @@ block content
   //  /.container
   // Optional JavaScript
   // jQuery first, then Popper.js, then Bootstrap JS
+  //- The core Firebase JS SDK is always required and must be listed first 
+  script(src="https://www.gstatic.com/firebasejs/8.6.7/firebase-app.js" defer)
+  script(src="https://www.gstatic.com/firebasejs/7.14.1/firebase-auth.js" defer)
+  script(src="https://cdn.jsdelivr.net/npm/js-cookie@rc/js.cookie.min.js" defer)
   script(src='https://code.jquery.com/jquery-3.2.1.slim.min.js' integrity='sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN' crossorigin='anonymous')
   script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js' integrity='sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4' crossorigin='anonymous')
   script(src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js' integrity='sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1' crossorigin='anonymous')
+  

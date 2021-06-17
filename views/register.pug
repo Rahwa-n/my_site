@@ -34,7 +34,7 @@ block content
       .menu-top-wrapper
         .ml-3.acct_user.d-flex
           // util profile
-          a(href='#')
+          a(href='/profile')
             .circle1
               .user_image
                 i.fas.fa-user-alt.text-white
@@ -52,8 +52,7 @@ block content
           .card.re_form
             .card-header Register
             .card-body
-              form(method='POST' action='')
-                input(type='hidden' name='_token' value='')
+              form(method='POST' action='/register')
                 .form-group.row
                   label.col-md-4.col-form-label.text-md-right(for='name') Name
                   .col-md-6
@@ -61,11 +60,11 @@ block content
                 .form-group.row
                   label.col-md-4.col-form-label.text-md-right(for='email') E-Mail Address
                   .col-md-6
-                    input#email.form-control(type='email' name='email' value='' required='' autocomplete='email')
+                    input#email.form-control(type='email' name='email' value='' required='' placeholder='cuisine@example.com', autofocus='', pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" autocomplete='email')
                 .form-group.row
                   label.col-md-4.col-form-label.text-md-right(for='password') Password
                   .col-md-6
-                    input#password.form-control(type='password' name='password' required='' autocomplete='new-password')
+                    input#password.form-control(type='password' name='password' required='' pattern="[a-z0-9]{6,}$", placeholder='minimum 6 characters', autocomplete='new-password')
                 .form-group.row
                   label.col-md-4.col-form-label.text-md-right(for='password-confirm') Confirm Password
                   .col-md-6

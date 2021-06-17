@@ -34,7 +34,7 @@ block content
       .menu-top-wrapper
         .ml-3.acct_user.d-flex
           // util profile
-          a(href='#')
+          a(href='/profile')
             .circle1
               .user_image
                 i.fas.fa-user-alt.text-white
@@ -45,22 +45,32 @@ block content
               i.fas.fa-shopping-cart.text-white
  
   
-  .container
-      #menu.row
+  div.container
+    .row
+      .col-lg-12
         h1.mb-5.head Edit and update Menu 
         div.edit-container
-          form(action="/edit", method="post" class="form")
-            input(type="hidden" name="_id" value= menus._id)
-            input#file(type="file", placeholder="Menu Image", required="required", name="menuImage" accept="img/*")
-            input(type="text",placeholder="menu name", required="required", name="menuName" value= menus.name)
-            input(type="text",placeholder="description",required="required",name="menuDescription" value= menus.description)
-            input(type="text",placeholder="menu price", required="required", name="price" value= menus.price)
-            br
-            br
-            p.edit
-              button Update Menus
-            br
-            br
-            include ./create.pug 
+        p
+          a.btn.btn-warning(href='/admin') Back
+          p.clear &nbsp;
+            form(action="/edit", method="post" class="form")
+              input(type="hidden" name="_id" value= menus._id)
+              input#file(type="file", placeholder="Menu Image", required="required", name="menuImage" accept="img/*")
+              .form-group
+              p
+                label(for='menuName') Menu Name: 
+              input.form-control(type="text",placeholder="menu name", required="required", name="menuName" value= menus.name)
+              .form-group
+              p
+                label(for='menuDescription') Menu Description: 
+              input.form-control(type="text",placeholder="description",required="required",name="menuDescription" value= menus.description)
+              .form-group
+              p
+                label(for='menuPrice') Menu Price:
+              input.form-control(type="text",placeholder="menu price", required="required", name="price" value= menus.price)
+              br
+              br
+              p.edit
+                button Update Menus
          
           

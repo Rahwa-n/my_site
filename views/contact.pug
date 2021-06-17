@@ -34,7 +34,7 @@ block content
       .menu-top-wrapper
         .ml-3.acct_user.d-flex
           // util profile
-          a(href='#')
+          a(href='/profile')
             .circle1
               .user_image
                 i.fas.fa-user-alt.text-white
@@ -72,16 +72,13 @@ block content
                 // Contact Info
                 .row
                   .col-md-6.mb-4
-                    // Name
                     input#name.form-control(type='text' placeholder='Name')
                   .col-md-6.mb-4
-                    // Email
                     input#email.form-control(type='email' placeholder='Email')
-                // Subject
                 .row
                   .col-md-12.mb-4
                     input#subject.form-control(type='text' placeholder='Subject')
-                // textarea
+                
                 .row
                   .col-md-12
                     .form-group.mb-4
@@ -90,14 +87,7 @@ block content
                       button.btn.btn-info.btn-md(type='submit')
                         | Send Message
                         i.fas.fa-paper-plane
-              // /. form
-            // /. card body
-          // /. card
-        // /. content section
-      // /. col
-    // /. row
-  // /container contact
-  // footer area
+          
   footer.text-center.text-white
     // Grid container
     .container.pt-4
