@@ -1,19 +1,25 @@
 // adding an express server
 const express = require('express');
+const session = require('express-session');
+//const mongoDBSession = require('connect-mongodb-session')(session);
+const mongoose = require('mongoose');
 // MongoClient has a connect method that allows us to connect to MongoDB using Node.j
 const mongoClient = require('mongodb').MongoClient;
 const ObjectID = require('mongodb').ObjectID;
+const port = process.env.PORT;
 const app = express();
-const port = 3000;
+const bcrypt = require('bcrypt');
 //path to display images from the public folder
 const path = require("path");
 const multer = require('multer');
+
 
 /**
  * set up MongoDB url to connect with
  * This method accepts the MongoDB server address (url) and a callback function
  */
-const dburl = "mongodb://localhost:27017"
+//const dburl = "mongodb://localhost:27017"
+const dburl = "mongodb+srv://rahwaDB:Rmatinati15@cluster0.yksef.mongodb.net/foods?retryWrites=true&w=majority"
 const bodyParser = require('body-parser');
 const urlEncodedParser = bodyParser.urlencoded({extended:false});
 mongoClient.connect(dburl,function(err,client){
@@ -26,8 +32,24 @@ mongoClient.connect(dburl,function(err,client){
  * to get the home page and display itby calling the function requeste and response
  */
 app.set('view engine', 'pug');
+/**
+ * this is a local server listen in port number 3000
+ * and it can be added other port number too for now heroku listens 5000
+ */
+app.listen(port,()=>{
+  console.log(`Example app listening on port ${port}`)
+});
+
 //set the static public folder and configure express to use it such as css, js, img
 app.use(express.static(path.join(__dirname,'public')));
+
+
+/**
+ * to display or respond check all middleware  
+ * and take any request witht he token
+ */
+
+
 
 /**
  *this is the root page route the index page 
@@ -69,7 +91,6 @@ app.get('/menu', function(req,res){
 });
 
 
-
 /** a route for menu page and and filter menus
  * and open in detail view the selected menu and render it
  * and alos connecting with the database
@@ -106,7 +127,27 @@ app.get('/edit/:id', function(req,res){
   });
 });
 
-//update menu
+/**
+ * Create route for adding new menu 
+ * and then can go back to the admin page and menu page 
+ * to see the effect of the create
+ */
+ app.get('/create', function(req,res){
+  mongoClient.connect(dburl, function(err,client){
+    const myDb = client.db('foods');
+    const collection = myDb.collection('menus');
+    collection.find().toArray(function(error,documents){
+      client.close();
+      res.render('create', {menus:documents});
+    });
+  });
+});
+
+/**
+ * This is the route for update menu and 
+ * redirect it to edit page also can see
+ * the effect in admin dashbord 
+ */
 app.post('/edit', urlEncodedParser, function(req, res){
   const selectedId = req.body._id;
   const filter = {_id: ObjectID(selectedId)};
@@ -161,7 +202,8 @@ app.post('/menu', urlEncodedParser, function(req, res){
 });
 
 /**
- * route for detail page menu to display details and insert and edit then update 
+ * route for detail page menu to display details 
+ * and insert and edit then update 
  */
  app.get('/detail/:id', function(req, res){
   const selectedId = req.params.id;
@@ -226,20 +268,80 @@ app.get('/register/', function(req,res){
 app.get('/login/', function(req,res){
     res.render('login', {});
 });
-
-app.get('/user', (req, res) => {
-  res.render("user", { title: "Profile", userProfile: { nickname: "Auth0" } });
+app.post('/login', function (req, res) {
+  var { email, password } = req.body;
+  console.log("params: ", email, '/', password);
+  mongoClient.connect(_mongoUrl, function (err, db) {
+      if (err) throw err;
+      var dbo = db.db(_db);
+      dbo.collection(_usersCollection).findOne({ email: email, password: password }, function (err, user) {
+          if (err) throw err;
+          else {
+              if (!user || user.length === 0 || user == null) {
+                  return res.json('username or password not matched');
+              }
+              else {
+                  req.session.isAuth = true;
+                  req.session.email = email;
+                  res.render('admin', { logged: req.session.isAuth, email: req.session.email });
+              }
+          }
+      });
+      db.close();
+  });
 });
 
+app.post('/logout', function (req, res) {
+  req.session.destroy(function (err) {
+      if (err) throw (err);
+      res.redirect('/');
+  })
+})
+
+// mongoose
+//     .connect(_appSessionsURI, {
+//         useNewUrlParser: true,
+//         useCreateIndex: true,
+//         useUnifiedTopology: true
+//     })
+//     .then(function (res) {
+//         console.log('MongoDB connected');
+//     });
+
+// const store = new mongoDBSession({
+//     uri: _appSessionsURI,
+//     collection: 'appSessions',
+// });
+
+// app.use(session({
+//     secret: '12457239abxef;;',
+//     resave: false,
+//     saveUninitialized: false,
+//     store: store,
+// }))
+
+// check if authed to whether redirect to login
+
+const isAuth = function (req, res, next) {
+    if (req.session.isAuth) {
+        next();
+    } else {
+        res.redirect('/login');
+    }
+}
 
 /**
  * this is a local server listen in port number 3000
  * and it can be added other port number too
  */
-app.listen(3000, function(){
-    console.log(`Node.js Project Started on port ${port}`);
-});
+// app.listen(3000, function(){
+//     console.log(`Node.js Project Started on port ${port}`);
+// });
 
+/**
+ * this is a route for admin to display m
+ * menus and do the CRUD
+ */
 app.get('/admin', function(req,res){
   mongoClient.connect(dburl, function(err,client){
     const myDb = client.db('foods');
@@ -250,3 +352,4 @@ app.get('/admin', function(req,res){
     });
   });
 });
+
