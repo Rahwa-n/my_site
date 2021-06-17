@@ -12,9 +12,6 @@ const bcrypt = require('bcrypt');
 //path to display images from the public folder
 const path = require("path");
 const multer = require('multer');
-const dotenv = require('dotenv');
-
-dotenv.config();
 
 
 /**
