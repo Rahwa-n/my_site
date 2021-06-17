@@ -18,8 +18,8 @@ const multer = require('multer');
  * set up MongoDB url to connect with
  * This method accepts the MongoDB server address (url) and a callback function
  */
-//const dburl = "mongodb://localhost:27017"
-const dburl = "mongodb+srv://rahwaDB:Rmatinati15@cluster0.yksef.mongodb.net/foods?retryWrites=true&w=majority"
+const dburl = "mongodb://localhost:27017"
+
 const bodyParser = require('body-parser');
 const urlEncodedParser = bodyParser.urlencoded({extended:false});
 mongoClient.connect(dburl,function(err,client){
@@ -48,8 +48,6 @@ app.use(express.static(path.join(__dirname,'public')));
  * to display or respond check all middleware  
  * and take any request witht he token
  */
-
-
 
 /**
  *this is the root page route the index page 
@@ -178,7 +176,7 @@ app.post('/menu', urlEncodedParser, function(req,res){
     const collection = myDb.collection('menus');
     collection.insertOne(newMenu, function(err,result){
       client.close();
-      res.redirect('/menu');
+      res.redirect('/admin');
     })
   })
 }); 
