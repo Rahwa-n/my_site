@@ -41,7 +41,7 @@ block content
         .ml-2.acct_srch.d-flex
           // shopping cart
           .ml-2.circle
-            a(href='#')
+            a(href='/cart')
               i.fas.fa-shopping-cart.text-white
       
   // menu
@@ -61,7 +61,7 @@ block content
                   p.text-center.product-price
                     | #{menu.price}
                   p.text-center.product-order
-                    a(href='#') Order Here 
+                    a(href='/cart/') Order Here 
                   p.text-center.product-price.font-weight-bold.bg-color-red
                     a(href="/detail/" + menu._id) Detail 
           

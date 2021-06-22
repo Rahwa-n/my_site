@@ -1,0 +1,126 @@
+extends ./layout.pug
+block content
+
+  nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
+    a.navbar-brand(href='/')
+      img.logo.my-2(src='../img/logo_edited1.png' alt='logo')
+    button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbarNav' aria-controls='navbarNav' aria-expanded='false' aria-label='Toggle navigation')
+      span.navbar-toggler-icon
+    #navbarsExampleDefault.collapse.navbar-collapse.justify-content-end
+      #navbarNav.collapse.navbar-collapse
+      ul.navbar-nav
+        li.nav-item
+          a.nav-link(href='/menu') Menu
+        li.nav-item
+          a.nav-link(href='/user') Users
+        li.nav-item
+          a.nav-link(href='/order') Orders
+        li.nav-item
+          a.nav-link(href='/service') Services
+        li.nav-item
+          a.nav-link(href='/delivery') Delivery
+        li.nav-item
+          a.nav-link(href='#') Logout
+  section.menu-area.mb-r
+    .container
+      .head.h1
+        | Table Name: 
+        em Order
+      
+      p
+        a(style='color: white;' href='#')
+          .btn.btn-success Add User +
+      .table-responsive
+        table.table.table-striped
+        
+          thead.thead-dark
+            tr
+              th(scope='col') Order ID
+              th(scope='col') User ID
+              th(scope='col') Billing Address
+              th(scope='col') Shipping Address
+              th(scope='col') Subtotal
+              th(scope='col') Total
+              th(scope='col') Edit
+              th(scope='col') Delete
+          // foreaach loop to iterate all the users
+          tbody
+            tr
+              th(scope='row') 1
+              th
+              td
+              td
+              td
+              td
+              td
+                p
+                  a.btn.btn-primary(href='#') Edit
+              td
+                form.delete(onsubmit="return confirm('Do you really want to delete this record?')" action='#' method='post')
+                  input(type='hidden' name='_method' value='DELETE')
+                  input(type='hidden' name='id' value='1')
+                  button.btn.btn-danger(type='submit') Delete
+          tbody
+            tr
+              th(scope='row') 2
+              th
+              td
+              td
+              td
+              td
+              td
+                p
+                  a.btn.btn-primary(href='#') Edit
+              td
+                form.delete(onsubmit="return confirm('Do you really want to delete this record?')" action='#' method='post')
+                  input(type='hidden' name='_method' value='DELETE')
+                  input(type='hidden' name='id' value='1')
+                  button.btn.btn-danger(type='submit') Delete
+          tbody
+            tr
+              th(scope='row') 3
+              th
+              td
+              td
+              td
+              td
+              td
+                p
+                  a.btn.btn-primary(href='#') Edit
+              td
+                form.delete(onsubmit="return confirm('Do you really want to delete this record?')" action='#' method='post')
+                  input(type='hidden' name='_method' value='DELETE')
+                  input(type='hidden' name='id' value='1')
+                  button.btn.btn-danger(type='submit') Delete
+          tbody
+            tr
+              th(scope='row') 4
+              th
+              td
+              td
+              td
+              td
+              td
+                p
+                  a.btn.btn-primary(href='#') Edit
+              td
+                form.delete(onsubmit="return confirm('Do you really want to delete this record?')" action='#' method='post')
+                  input(type='hidden' name='_method' value='DELETE')
+                  input(type='hidden' name='id' value='1')
+                  button.btn.btn-danger(type='submit') Delete
+          tbody
+            tr
+              th(scope='row') 5
+              th
+              td
+              td
+              td
+              td
+              td
+                p
+                  a.btn.btn-primary(href='#') Edit
+              td
+                form.delete(onsubmit="return confirm('Do you really want to delete this record?')" action='#' method='post')
+                  input(type='hidden' name='_method' value='DELETE')
+                  input(type='hidden' name='id' value='1')
+                  button.btn.btn-danger(type='submit') Delete

@@ -7,100 +7,53 @@ block content
     button.navbar-toggler(type='button' data-toggle='collapse' data-target='#navbarsExampleDefault' aria-controls='navbarsExampleDefault' aria-expanded='false' aria-label='Toggle navigation')
       span.navbar-toggler-icon
     #navbarsExampleDefault.collapse.navbar-collapse.justify-content-end
+      #navbarNav.collapse.navbar-collapse
       ul.navbar-nav
-        li.nav-item
-          a.nav-link(href='/login') Login
+        //- li.nav-item
+        //-   a.nav-link(href='/recipe') Recipes
+        //- li.nav-item
+        //-   a.nav-link(href='/user') Users
+        //- li.nav-item
+        //-   a.nav-link(href='/order') Orders
+        //- li.nav-item
+        //-   a.nav-link(href='/services') Services
+        //- li.nav-item
+        //-   a.nav-link(href='/delivery') Delivery
+        //- li.nav-item
+        //-   a.nav-link(href='/login') Login
         li.nav-item
           a.nav-link(href='#') Logout
         // util search
     
-  section.menu-area.mb-r
-    .container
-      .row
-        //- h1.mb-5.info Admin CRUD Page 
-        p
-          a(style='color: white;' href='/create')
-            .btn.btn-success Add Menu +       
-        //- .row
-        //-   each menu in menus
-        //-     .col-md-6.col-lg-4
-        //-       .card.mb-3.shadow
-        //-         img.card-img-top(src='/img/' + menu.image)
-        //-         .card-body
-        //-           h4.card-title.font-weight-bold=menu.name
-        //-           p.card-text
-        //-             | #{menu.description}
-        //-           p.text-center.product-price
-        //-             | #{menu.price}
-        //-           a(href="/edit/" + menu._id) Edit | 
-        //-           a(href="/delete/" + menu._id) Delete
-  
+  section.menu-area.mb-r    
   .container
     .head.h1
       | Admin: 
-      em Dashboard
+      em Menu Page
     p
       a(style='color: white;' href='/create')
         .btn.btn-success Add Menu +
-    //- table.table.table-striped
-    //-   // this is the table
-    //-   thead.thead-dark
-    //-     tr
-    //-       //- th(scope='col') Menu Image
-    //-       //- th(scope='col') Menu Id
-    //-       th(scope='col') Menu Name
-    //-       th(scope='col') Menu Description
-    //-       th(scope='col') Price
-    //-       th(scope='col') Edit
-    //-       th(scope='col') Delete
-      
-    each menu in menus
-      tbody
-        tr
-          //- th
-          //- img(src='/img/'+ menu.image)
-          strong Menu Id - 
-          td #{menu._id}
-          br
-          strong Menu Name -  
-          td= menu.name
-          br
-          strong Menu Description -  
-          td= menu.description
-          br
-          Strong Menu Price - 
-          td= menu.price
-          br
-          td
-            p
-              a.btn.btn-primary(href="/edit/" + menu._id) Edit 
-          td
-            form.delete(onsubmit="return confirm('Do you really want to delete this record?')" action='/admin' method='post')
-              input(type='hidden' name='menu._id' value='menu._id')
-              a.btn.btn-danger(href="/delete/" + menu._id) Delete
-          br
-          br
-
-          //- table(width='100%', cellspacing='0', cellpadding='0', border='0', bgcolor='#F2F2F2')
-          //- thead
-          //-   tr
-          //-     th Menu Name
-          //-     th Menu Description
-          //-     th Menu Price
-          //-     th Action
-          //-  tbody
-          //-   each menu in menus
-          //-     tr
-          //-     td #{menu.name}
-          //-       td #{menu.description}
-          //-       td #{menu.price}
-          //-       td #{menu.action}
-          //-       td
-          //-         p
-          //-           a.btn.btn-primary(href="/edit/" + menu._id) Edit 
-          //-       td
-          //-       form.delete(onsubmit="return confirm('Do you really want to delete this record?')" action='/admin' method='post')
-          //-           input(type='hidden' name='menu._id' value='menu._id')
-          //-         a.btn.btn-danger(href="/delete/" + menu._id) Delete
-
-  
+    .table-responsive
+      table.table.table-striped
+        thead.thead-dark
+          tr
+              th(scope='col') Menu Id
+              th(scope='col') Menu Name
+              th(scope='col') Menu Description
+              th(scope='col') Menu Price 
+              th(scope='col') Edit
+              th(scope='col') Delete
+                  
+        tbody
+          each menu in menus
+            tr
+              td= menu._id
+              td= menu.name
+              td= menu.description 
+              td= menu.price
+              td
+                a.btn.btn-primary(href="/edit/" + menu._id) Edit 
+              td
+                  form.delete(onsubmit="return confirm('Do you really want to delete this record?')" action='/admin' method='post')
+                    input(type='hidden' name='menu._id' value='menu._id')
+                    a.btn.btn-danger(href="/delete/" + menu._id) Delete
