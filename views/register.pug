@@ -71,6 +71,7 @@ block content
                     input#password-confirm.form-control(type='password' name='password_confirmation' required='' autocomplete='new-password')
                 .form-group.row.mb-0
                   .col-md-6.offset-md-4
+                    input(type="hidden" name="_csrf" value="token")
                     button.btn.btn-info(type='submit')
                       | Register
   // footer area
@@ -111,44 +112,44 @@ block content
   script(src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js' integrity='sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4' crossorigin='anonymous')
   script(src='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js' integrity='sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1' crossorigin='anonymous')
   
-  script.
-     var firebaseConfig = {
-      apiKey: "AIzaSyBeIe4mOqwzDKkUMMoA7VPRfZxdp71KH8k",
-      authDomain: "eritrean-cuisine-ec10d.firebaseapp.com",
-      projectId: "eritrean-cuisine-ec10d",
-      storageBucket: "eritrean-cuisine-ec10d.appspot.com",
-      messagingSenderId: "477957437823",
-      appId: "1:477957437823:web:1a124179f367c32b55c24a"
-    };
-    // Initialize Firebase
-    firebase.initializeApp(firebaseConfig);
+  //- script.
+  //-    var firebaseConfig = {
+  //-     apiKey: "AIzaSyBeIe4mOqwzDKkUMMoA7VPRfZxdp71KH8k",
+  //-     authDomain: "eritrean-cuisine-ec10d.firebaseapp.com",
+  //-     projectId: "eritrean-cuisine-ec10d",
+  //-     storageBucket: "eritrean-cuisine-ec10d.appspot.com",
+  //-     messagingSenderId: "477957437823",
+  //-     appId: "1:477957437823:web:1a124179f367c32b55c24a"
+  //-   };
+  //-   // Initialize Firebase
+  //-   firebase.initializeApp(firebaseConfig);
 
-      //write a code which will register new user/and implementing a our authtentication
-      firebase.auth().setPersistence(firebase.auth.Auth.Persistence.NONE)
-      document.getElementById('register')
-      .addEventListener('click', function(e){
-        e.preventDefault()
+  //-     //write a code which will register new user/and implementing a our authtentication
+  //-     firebase.auth().setPersistence(firebase.auth.Auth.Persistence.NONE)
+  //-     document.getElementById('register')
+  //-     .addEventListener('click', function(e){
+  //-       e.preventDefault()
 
-        const login = even.target.email.value
-        const login = even.target.password.value
-        firebase.auth().createUserWithEmailAndPassword(email,password)
-        .then(({user}) => {
-          return user.getIdToken().then((idToken) => {
-            return fetch('/sessionLogin')
-              method: POST
-              headers: {
-                Accept: 'application/json',
-                "Content-Type":"application/json",
-                "CSRF-Token":Cookies.get("XSRF-TOKEN")
-              },
-              body:JSON.stringfy({idToken})
-          })
-        })
-        .then(() => {
-          return firebase.auth().signOut()
-        })
-        .then(() => {
-          widonw.location.assign('/profile')
-        });
-        return false;
-      })
+  //-       const login = even.target.email.value
+  //-       const login = even.target.password.value
+  //-       firebase.auth().createUserWithEmailAndPassword(email,password)
+  //-       .then(({user}) => {
+  //-         return user.getIdToken().then((idToken) => {
+  //-           return fetch('/sessionLogin')
+  //-             method: POST
+  //-             headers: {
+  //-               Accept: 'application/json',
+  //-               "Content-Type":"application/json",
+  //-               "CSRF-Token":Cookies.get("XSRF-TOKEN")
+  //-             },
+  //-             body:JSON.stringfy({idToken})
+  //-         })
+  //-       })
+  //-       .then(() => {
+  //-         return firebase.auth().signOut()
+  //-       })
+  //-       .then(() => {
+  //-         widonw.location.assign('/profile')
+  //-       });
+  //-       return false;
+  //-     })

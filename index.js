@@ -2,12 +2,14 @@
 const express = require('express');
 const session = require('express-session');
 const csrf = require('csurf');
+const passport = require('passport');
+const flash = require('connect-flash');
 //const mongoDBSession = require('connect-mongodb-session')(session);
 // const mongoose = require('mongoose');
 // MongoClient has a connect method that allows us to connect to MongoDB using Node.j
 const mongoClient = require('mongodb').MongoClient;
 const ObjectID = require('mongodb').ObjectID;
-const port = process.env.PORT;
+const port = process.env.PORT || 5000;
 const app = express();
 const bcrypt = require('bcrypt');
 //path to display images from the public folder
@@ -17,41 +19,68 @@ const dotenv = require('dotenv');
 const admin = require('firebase-admin');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
-const csrfMiddleware = csrf({ cookie: true });
-const serviceAccount = require("./serviceAccountKey.json");
+//const csrfMiddleware = csrf({ cookie: true });
+const csrfProtection = csrf();
+const LocalStrategy = require('passport-local').Strategy;
+//const serviceAccount = require("./serviceAccountKey.json");
+
+//to store password 
+passport.serializeUser(function(user, done){
+  done(null, user.id);
+});
+//and if it is error usethis one
+passport.deserializeUser(function(id, done){
+  User.findById(id, function(err, user){
+    done(err, user);
+  });
+});
+passport.use('local.register', new LocalStrategy({
+    useernameField: 'username',
+    userEmailFild: 'email',
+    passwordField: 'password',
+    passReqToCallback: true
+}, function(req, email, password, done){
+}));
 
 //import the module
-var mongoose = require('mongoose');
+const mongoose = require("mongoose");
 dotenv.config();
+console.log(process.env.MONGODB_URI);
 /**
  * set up MongoDB url to connect with
  * This method accepts the MongoDB server address (url) and a callback function
  */
 //const mongoDB = "mongodb://localhost:27017"
-var mongoDB = process.env.MONGODB_URI
+var mongoDB = process.env.MONGODB_URI;
 
 
 //const mongoDB = "mongodb+srv://rahwaDB:Rahwa1977@cluster0.yksef.mongodb.net/foods?retryWrites=true&w=majority";
-console.log(mongoDB);
+//console.log(mongoDB);
 const urlEncodedParser = bodyParser.urlencoded({extended:false});
 mongoClient.connect(mongoDB,function(err,client){
   console.log('connected with DB');
 });
 
 
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  databseURL: ""
-});
+// admin.initializeApp({
+//   credential: admin.credential.cert(serviceAccount),
+// });
 
+//app.use(logger('dev'));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser());
-app.use(csrfMiddleware);
+//app.use(csrfMiddleware);
+app.use(session({secret: 'mysupersecret', resave: false, saveUninitialized: false}));
+app.use(csrfProtection);
+app.use(flash());
+app.use(passport.initialize());
+app.use(passport.session());
 
-app.all("*",(req,res,next) => {
-  res.cookie("XSRF-TOKEN",req.csrfToken());
-  next();
-});
+// app.all("*",(req,res,next) => {
+//   res.cookie("XSRF-TOKEN",req.csrfToken());
+//   next();
+// });
 
 app.engine("html",require('pug').renderFile);
 /**
@@ -83,6 +112,7 @@ app.use(express.static(path.join(__dirname,'public')));
 app.get('/', function(req,res){
     //connection to the database
   mongoClient.connect(mongoDB,function(err,client){
+    console.log(client);
     const myDb = client.db('foods');
     const collection = myDb.collection('menus');
     collection.find({}).toArray((error, documents)=>{
@@ -287,6 +317,13 @@ app.get('/register/', function(req,res){
     res.render('register', {});
 });
 
+app.get('/register/', function(req,res, next){
+  res.render('register', {token: req.token()});
+});
+app.post('/register/', function(req,res, next){
+  res.redirect("/");
+});
+
 /**
  * a login page route  and render it 
  * to display the content of the page
@@ -296,16 +333,13 @@ app.get('/login/', function(req,res){
 });
 
 
-// app.post('/logout', function (req, res) {
-//   req.session.destroy(function (err) {
-//       if (err) throw (err);
-//       res.redirect('/');
-//   })
-// })
+app.post('/logout', function (req, res) {
+  req.session.destroy(function (err) {
+      if (err) throw (err);
+      res.redirect('/');
+  })
+})
 
-app.get("/signup/", function (req, res) {
-  res.render("signup");
-});
 
 /**
  * route for session store in a cookie for 5 days
@@ -347,10 +381,10 @@ admin
 /**
  * route for session cookie logout
  */
-app.get('/sessionLogOut', (req,res) => {
-  res.clearCookie('session');
-  res.redirect('/login');
-});
+// app.get('/sessionLogOut', (req,res) => {
+//   res.clearCookie('session');
+//   res.redirect('/login');
+// });
 
 app.post('/cart', async (req,res) => {
   const menuData = req.body;
@@ -372,16 +406,7 @@ app.get('/admin', function(req,res){
     });
   });
 });
-app.get('/order', function(req,res){
-  mongoClient.connect(mongoDB, function(err,client){
-    const myDb = client.db('foods');
-    const collection = myDb.collection('menus');
-    collection.find().toArray(function(error,documents){
-      client.close();
-      res.render('order', {menus:documents});
-    });
-  });
-});
+
 
 // firebase.auth().signOut().then(() => {
 //   // Sign-out successful.
