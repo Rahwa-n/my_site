@@ -9,7 +9,7 @@ const flash = require('connect-flash');
 // MongoClient has a connect method that allows us to connect to MongoDB using Node.j
 const mongoClient = require('mongodb').MongoClient;
 const ObjectID = require('mongodb').ObjectID;
-const port = process.env.PORT || 5000;
+const port = process.env.PORT;
 const app = express();
 const bcrypt = require('bcrypt');
 //path to display images from the public folder
