@@ -15,7 +15,7 @@ const bcrypt = require('bcrypt');
 //path to display images from the public folder
 const path = require("path");
 const multer = require('multer');
-const dotenv = require('dotenv');
+require('dotenv').config();
 const admin = require('firebase-admin');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
@@ -44,7 +44,7 @@ passport.use('local.register', new LocalStrategy({
 
 //import the module
 const mongoose = require("mongoose");
-dotenv.config();
+
 console.log(process.env.MONGODB_URI);
 /**
  * set up MongoDB url to connect with
