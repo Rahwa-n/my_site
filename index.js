@@ -20,7 +20,7 @@ const admin = require('firebase-admin');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 //const csrfMiddleware = csrf({ cookie: true });
-const csrfProtection = csrf();
+//const csrfProtection = csrf();
 const LocalStrategy = require('passport-local').Strategy;
 const serviceAccount = require("./serviceAccountKey.json");
 //const expressValidator = require('express-validator');
@@ -57,15 +57,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 //app.use(csrfMiddleware);
 app.use(session({secret: 'mysupersecret', resave: false, saveUninitialized: false}));
-app.use(csrfProtection);
+//app.use(csrfProtection);
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
-
-// app.all("*",(req,res,next) => {
-//   res.cookie("XSRF-TOKEN",req.csrfToken());
-//   next();
-// });
 
 app.engine("html",require('pug').renderFile);
 /**
@@ -322,9 +317,7 @@ app.get('/register/', function(req, res) {
       }, res);
 });
 
-// app.get('/register/', function(req,res, next){
-//   res.render('register', {token: req.token()});
-// });
+
 app.post('/register/', function(req,res, next){
   res.redirect("/");
 });
@@ -349,26 +342,26 @@ app.post('/logout', function (req, res) {
 /**
  * route for session store in a cookie for 5 days
  */
- app.post("/sessionLogin", (req,res) => {
-  const idToken = req.body.idToken.toString();
+//  app.post("/sessionLogin", (req,res) => {
+//   const idToken = req.body.idToken.toString();
 
-  const expiresIn = 60 * 60 * 24 * 5 * 1000;
+//   const expiresIn = 60 * 60 * 24 * 5 * 1000;
 
-admin
-  .auth()
-  .createSessionCookie(idToken, { expiresIn })
-  .then(
-    (sessionCookie) => {
-      const options = { maxAge: expiresIn, httpOnly: true };
-      res.cookie("session", sessionCookie, options);
-      res.end(JSON.stringify({ status: "success" }));
-    },
-    (error) => {
-      res.status(401).send("UNAUTHORISED REQUEST")
-      red.redirect('/login');
-    }
-  )
-});
+// admin
+//   .auth()
+//   .createSessionCookie(idToken, { expiresIn })
+//   .then(
+//     (sessionCookie) => {
+//       const options = { maxAge: expiresIn, httpOnly: true };
+//       res.cookie("session", sessionCookie, options);
+//       res.end(JSON.stringify({ status: "success" }));
+//     },
+//     (error) => {
+//       res.status(401).send("UNAUTHORISED REQUEST")
+//       red.redirect('/login');
+//     }
+//   )
+// });
 
 /**
  * profile route for user and admin
