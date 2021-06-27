@@ -5,7 +5,7 @@ const csrf = require('csurf');
 const passport = require('passport');
 const flash = require('connect-flash');
 //const mongoDBSession = require('connect-mongodb-session')(session);
-// const mongoose = require('mongoose');
+//const mongoose = require('mongoose');
 // MongoClient has a connect method that allows us to connect to MongoDB using Node.j
 const mongoClient = require('mongodb').MongoClient;
 const ObjectID = require('mongodb').ObjectID;
@@ -22,28 +22,12 @@ const cookieParser = require('cookie-parser');
 //const csrfMiddleware = csrf({ cookie: true });
 const csrfProtection = csrf();
 const LocalStrategy = require('passport-local').Strategy;
-//const serviceAccount = require("./serviceAccountKey.json");
-
-//to store password 
-passport.serializeUser(function(user, done){
-  done(null, user.id);
-});
-//and if it is error usethis one
-passport.deserializeUser(function(id, done){
-  User.findById(id, function(err, user){
-    done(err, user);
-  });
-});
-passport.use('local.register', new LocalStrategy({
-    useernameField: 'username',
-    userEmailFild: 'email',
-    passwordField: 'password',
-    passReqToCallback: true
-}, function(req, email, password, done){
-}));
+const serviceAccount = require("./serviceAccountKey.json");
+//const expressValidator = require('express-validator');
 
 //import the module
 const mongoose = require("mongoose");
+const { ResultWithContext } = require('express-validator/src/chain');
 
 console.log(process.env.MONGODB_URI);
 /**
@@ -62,13 +46,14 @@ mongoClient.connect(mongoDB,function(err,client){
 });
 
 
-// admin.initializeApp({
-//   credential: admin.credential.cert(serviceAccount),
-// });
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+});
 
 //app.use(logger('dev'));
-app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+//app.use(validator());
 app.use(cookieParser());
 //app.use(csrfMiddleware);
 app.use(session({secret: 'mysupersecret', resave: false, saveUninitialized: false}));
@@ -100,11 +85,24 @@ app.listen(port,()=>{
 //set the static public folder and configure express to use it such as css, js, img
 app.use(express.static(path.join(__dirname,'public')));
 
+//setting global errors
+app.locals.errors = null;
 
-/**
- * to display or respond check all middleware  
- * and take any request witht he token
- */
+//Express session Middleware
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: true }
+}));
+
+//express flash messages middleware
+app.use(require('connect-flash')());
+app.use(function (req, res, next){
+  res.locals.messages = require('express-messages')(req, res);
+  next();
+})
+
 
 /**
  *this is the root page route the index page 
@@ -317,9 +315,16 @@ app.get('/register/', function(req,res){
     res.render('register', {});
 });
 
-app.get('/register/', function(req,res, next){
-  res.render('register', {token: req.token()});
+//flash message
+app.get('/register/', function(req, res) {
+  template.render({
+          flashMessages: res.locals.flash
+      }, res);
 });
+
+// app.get('/register/', function(req,res, next){
+//   res.render('register', {token: req.token()});
+// });
 app.post('/register/', function(req,res, next){
   res.redirect("/");
 });
@@ -405,6 +410,12 @@ app.get('/admin', function(req,res){
       res.render('admin', {menus:documents});
     });
   });
+});
+
+//flash message set for admin page
+app.get('/admin', (req, res) => {
+  req.flash("success", "flash message for a render method");
+  res.render("/admin", { successes: req.flash("success") });
 });
 
 
