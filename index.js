@@ -4,17 +4,17 @@ const session = require('express-session');
 const passport = require('passport');
 const flash = require('connect-flash');
 //const mongoDBSession = require('connect-mongodb-session')(session);
-// const mongoose = require('mongoose');
+//const mongoose = require('mongoose');
 // MongoClient has a connect method that allows us to connect to MongoDB using Node.j
 const mongoClient = require('mongodb').MongoClient;
 const ObjectID = require('mongodb').ObjectID;
-const port = process.env.PORT || 5000;
+const port = process.env.PORT;
 const app = express();
 const bcrypt = require('bcrypt');
 //path to display images from the public folder
 const path = require("path");
 const multer = require('multer');
-const dotenv = require('dotenv');
+require('dotenv').config();
 const admin = require('firebase-admin');
 const bodyParser = require('body-parser');
 // const cookieParser = require('cookie-parser');
@@ -41,9 +41,14 @@ passport.use('local.register', new LocalStrategy({
 }, function(req, email, password, done){
 }));
 
+//const serviceAccount = require("./serviceAccountKey.json");
+//const expressValidator = require('express-validator');
+
+
 //import the module
 const mongoose = require("mongoose");
-dotenv.config();
+const { ResultWithContext } = require('express-validator/src/chain');
+
 console.log(process.env.MONGODB_URI);
 /**
  * set up MongoDB url to connect with
@@ -59,14 +64,19 @@ mongoClient.connect(mongoDB,function(err,client){
 });
 
 
-// admin.initializeApp({
-//   credential: admin.credential.cert(serviceAccount),
-// });
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+});
 
 //app.use(logger('dev'));
-app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
+
 //app.use(cookieParser());
+//app.use(csrfMiddleware);
+//app.use(session({secret: 'mysupersecret', resave: false, saveUninitialized: false}));
+app.use(bodyParser.urlencoded({ extended: false }));
+//app.use(validator());
+app.use(cookieParser());
 //app.use(csrfMiddleware);
 //app.use(session({secret: 'mysupersecret', resave: false, saveUninitialized: false}));
 //app.use(csrfProtection);
@@ -74,11 +84,13 @@ app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
 
+
 // app.all("*",(req,res,next) => {
 //   res.cookie("XSRF-TOKEN",req.csrfToken());
 //   next();
 // });
 
+//app.engine("html",require('pug').renderFile);
 //app.engine("html",require('pug').renderFile);
 /**
  * setting the pug engine to load the page
@@ -97,11 +109,24 @@ app.listen(port,()=>{
 //set the static public folder and configure express to use it such as css, js, img
 app.use(express.static(path.join(__dirname,'public')));
 
+//setting global errors
+app.locals.errors = null;
 
-/**
- * to display or respond check all middleware  
- * and take any request witht he token
- */
+//Express session Middleware
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: true }
+}));
+
+//express flash messages middleware
+app.use(require('connect-flash')());
+app.use(function (req, res, next){
+  res.locals.messages = require('express-messages')(req, res);
+  next();
+})
+
 
 /**
  *this is the root page route the index page 
@@ -314,9 +339,18 @@ app.get('/register/', function(req,res){
     res.render('register', {});
 });
 
+
 // app.get('/register/', function(req,res, next){
 //   res.render('register', {token: req.token()});
 // });
+
+//flash message
+app.get('/register/', function(req, res) {
+  template.render({
+          flashMessages: res.locals.flash
+      }, res);
+});
+
 app.post('/register/', function(req,res, next){
   res.redirect("/");
 });
@@ -402,6 +436,12 @@ app.get('/admin', function(req,res){
       res.render('admin', {menus:documents});
     });
   });
+});
+
+//flash message set for admin page
+app.get('/admin', (req, res) => {
+  req.flash("success", "flash message for a render method");
+  res.render("/admin", { successes: req.flash("success") });
 });
 
 
