@@ -1,7 +1,6 @@
 // adding an express server
 const express = require('express');
 const session = require('express-session');
-const csrf = require('csurf');
 const passport = require('passport');
 const flash = require('connect-flash');
 //const mongoDBSession = require('connect-mongodb-session')(session);
@@ -18,12 +17,12 @@ const multer = require('multer');
 const dotenv = require('dotenv');
 const admin = require('firebase-admin');
 const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser');
+// const cookieParser = require('cookie-parser');
 //const csrfMiddleware = csrf({ cookie: true });
-const csrfProtection = csrf();
+//const csrfProtection = csrf();
 const LocalStrategy = require('passport-local').Strategy;
 //const serviceAccount = require("./serviceAccountKey.json");
-
+//const cart = require(cart);
 //to store password 
 passport.serializeUser(function(user, done){
   done(null, user.id);
@@ -53,8 +52,6 @@ console.log(process.env.MONGODB_URI);
 //const mongoDB = "mongodb://localhost:27017"
 var mongoDB = process.env.MONGODB_URI;
 
-
-//const mongoDB = "mongodb+srv://rahwaDB:Rahwa1977@cluster0.yksef.mongodb.net/foods?retryWrites=true&w=majority";
 //console.log(mongoDB);
 const urlEncodedParser = bodyParser.urlencoded({extended:false});
 mongoClient.connect(mongoDB,function(err,client){
@@ -69,10 +66,10 @@ mongoClient.connect(mongoDB,function(err,client){
 //app.use(logger('dev'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(cookieParser());
+//app.use(cookieParser());
 //app.use(csrfMiddleware);
-app.use(session({secret: 'mysupersecret', resave: false, saveUninitialized: false}));
-app.use(csrfProtection);
+//app.use(session({secret: 'mysupersecret', resave: false, saveUninitialized: false}));
+//app.use(csrfProtection);
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
@@ -82,7 +79,7 @@ app.use(passport.session());
 //   next();
 // });
 
-app.engine("html",require('pug').renderFile);
+//app.engine("html",require('pug').renderFile);
 /**
  * setting the pug engine to load the page
  * to use the css, js, and img file from the public folder to make it dynamic
@@ -317,9 +314,9 @@ app.get('/register/', function(req,res){
     res.render('register', {});
 });
 
-app.get('/register/', function(req,res, next){
-  res.render('register', {token: req.token()});
-});
+// app.get('/register/', function(req,res, next){
+//   res.render('register', {token: req.token()});
+// });
 app.post('/register/', function(req,res, next){
   res.redirect("/");
 });
@@ -369,15 +366,15 @@ admin
  * profile route for user and admin
  */
  app.get('/profile/', function(req,res){
-  const sessionCookie = req.cookies.session || ""
-  admin.auth().verifySessionCookie(sessionCookie, true)
-    .then(() => {
+ // const sessionCookie = req.cookies.session || ""
+  //admin.auth().verifySessionCookie(sessionCookie, true)
+    // .then(() => {
       res.render('profile')
-    })
     .catch(() => {
        res.redirect('/login');
     });
   });
+ 
 /**
  * route for session cookie logout
  */

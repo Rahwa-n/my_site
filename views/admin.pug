@@ -56,4 +56,4 @@ block content
               td
                   form.delete(onsubmit="return confirm('Do you really want to delete this record?')" action='/admin' method='post')
                     input(type='hidden' name='menu._id' value='menu._id')
-                    a.btn.btn-danger(href="/delete/" + menu._id) Delete
+                    a.btn.btn-danger(href='/delete/' + menu._id onclick="return confirm('Are you sure you want to delete this menu?');") Delete

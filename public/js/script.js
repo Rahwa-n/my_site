@@ -8,6 +8,14 @@ setTimeout(() => {
     console.log(title);
 }, 3000);
 
-
+const registerForm = document.querySelector('.register')
+  registerForm.addEventListener('click', function(e){
+  e.preventDefault()
+  const email = registerForm['email'].value
+  const password = registerForm['password'].value
+  firebase.auth().createUserWithEmailAndPassword(email, password)
+  .then(() =>  window.location.assign('/profile'))
+  .then(() => registerForm.reset())  
+})
 
 
