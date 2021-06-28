@@ -9,7 +9,7 @@ setTimeout(() => {
 }, 3000);
 
 const registerForm = document.querySelector('.register')
-  registerForm.addEventListener('click', function(e){
+registerForm.addEventListener('click', function(e){
   e.preventDefault()
   const email = registerForm['email'].value
   const password = registerForm['password'].value

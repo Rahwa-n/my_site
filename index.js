@@ -64,9 +64,9 @@ mongoClient.connect(mongoDB,function(err,client){
 });
 
 
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-});
+// admin.initializeApp({
+//   credential: admin.credential.cert(serviceAccount),
+// });
 
 //app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -76,7 +76,7 @@ app.use(bodyParser.json());
 //app.use(session({secret: 'mysupersecret', resave: false, saveUninitialized: false}));
 app.use(bodyParser.urlencoded({ extended: false }));
 //app.use(validator());
-app.use(cookieParser());
+//app.use(cookieParser());
 //app.use(csrfMiddleware);
 //app.use(session({secret: 'mysupersecret', resave: false, saveUninitialized: false}));
 //app.use(csrfProtection);
