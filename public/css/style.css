@@ -138,6 +138,7 @@ body {
 /*style each column menu page*/
 .shadow {
 box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2);
+min-height: 200px;
 }
 
 /*service page table style*/
@@ -307,9 +308,23 @@ td {
     bottom;
   background-size: cover;
 }
-      
+ .yourCart {
+    width: 100%; 
+    margin-left: 350px;
+   margin-top: 15px; 
+ }     
+.cart{
+  padding-right: 45px;
+  padding-left: 10px;
+}
 
+.carts{
+  padding-left: 45px;
+}
 
+.btn-group.action {
+  padding-left: 30px;
+}
 
 
 

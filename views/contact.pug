@@ -41,7 +41,7 @@ block content
         .ml-2.acct_srch.d-flex
           // shopping cart
           .ml-2.circle
-            a(href='#')
+            a(href='/cart')
               i.fas.fa-shopping-cart.text-white
   // /navbar
   .container_contact
@@ -82,7 +82,7 @@ block content
                 .row
                   .col-md-12
                     .form-group.mb-4
-                      textarea#message.form-control.rounded(rows='3' placeholder='We will be happy to help')
+                      textarea#message.form-control.rounded(name="message" rows='3' placeholder='We will be happy to help' required)
                     .text-center
                       button.btn.btn-info.btn-md(type='submit')
                         | Send Message

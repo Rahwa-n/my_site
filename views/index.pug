@@ -29,6 +29,7 @@ block content
         form.form-inline(method='get' action='')
           input(type='hidden' name='_token' value='')
           input#query.form-control.searchbox(type='search' name='query' placeholder='Search')
+          //- i.material-icons.searchbox__icon Search
           span.input-group-btn
             button.btn.btn-outline-info.my-2.my-sm-0.text-white.bu(type='submit') Search
       .menu-top-wrapper
@@ -41,7 +42,7 @@ block content
         .ml-2.acct_srch.d-flex
           // shopping cart
           .ml-2.circle
-            a(href='#')
+            a(href='/cart')
               i.fas.fa-shopping-cart.text-white
   // /navbar
   // jumbotron

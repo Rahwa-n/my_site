@@ -40,16 +40,17 @@ block content
         .ml-2.acct_srch.d-flex
           // shopping cart
           .ml-2.circle
-            a(href='#')
+            a(href='/cart')
               i.fas.fa-shopping-cart.text-white
-  div.col-10.ml-sm-auto.px-4
-    if successes
-      for success in successes
-        div.alert.alert-success #{ success }
-    if errors
-      for error, i in errors
-        div.alert.alert-danger #{ error }
-  // /navbar
+  //-div.col-10.ml-sm-auto.px-4
+    
+    //- if successes
+    //-   for success in successes
+    //-     div.alert.alert-success #{ success }
+    //- if errors
+    //-   for error, i in errors
+    //-     div.alert.alert-danger #{ error }
+ 
   header.masthead
     .container.d-flex.h-100.align-items-center.justify-content-center
       .row.justify-content-center.login
@@ -57,6 +58,9 @@ block content
         .col-md-12
           .card.lo_form
             .card-header Login
+            div.col-10.ml-sm-auto.px-4
+              if messages
+                local.messages
             .card-body
               form(#login method='POST' action='/login')
                 input(type='hidden' name='' value='')

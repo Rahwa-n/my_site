@@ -41,55 +41,42 @@ block content
         .ml-2.acct_srch.d-flex
           // shopping cart
           .ml-2.circle
-            a(href='#')
+            a(href='/cart')
               i.fas.fa-shopping-cart.text-white
+
   .container.d-flex.h-100.align-items-center.justify-content-center.register
     .h1.text-black.mx-auto.mt-0.mb-3.text-center.custom_lineheight Your Cart
-        .container.page.my-5
+        //- .container.page.my-5
           span#status
-          table#cart.table.table-hover.table-condensed
-            thead
-              tr
-                th.bg-light(style='width:50%') Menu
-                th.bg-light(style='width:10%') Price
-                th.bg-light(style='width:8%') Quantity
-                th.text-center.bg-light(style='width:22%') Subtotal
-                th.bg-light(style='width:10%')
-            tbody
-              tr
-                td.align-middle(data-th='Product')
-                  .row
-                    .col-sm-3.hidden-xs
-                      img.img-responsive(src="" width='100' height='100')
-                    .col-sm-9.align-middle
-                      h4.mt-3 
-                td(data-th='Price') 
-                td(data-th='Quantity')
-                  input.form-control.quantity(type='number' value="" data-id='')
-                td.text-center(data-th='Subtotal')
-                  | $
-                  span.product-subtotal 
-                td.actions(data-th='/delete')
-                  button.btn.btn-danger.btn-sm.remove-from-cart(data-id='menu._id ')
-                    i.fas.fa-trash
-                  i.fa.fa-circle-o-notch.fa-spin.btn-loading(style='font-size:24px; display: none')
-              
-            tfoot
-              tr.visible-xs
-                td.text-right(colspan='5')
-                  strong
-                    span.message.text-danger
-              tr
-                td.text-right(colspan='5')
-                  strong
-                    | Total $
-                    span.cart-total
-              td
-                a.btn.btn-warning(href="/menu/") 
-                  i.fa.fa-angle-left
-                  |  Continue Shopping
-              td.hidden-xs(colspan='3')
-              td
-                a.btn.btn-primary(href="/checkout/") Checkout
+  if menus
+  .row
+    .col-md-6.col-md-6.col-md-offset-3.col-sm-offset-3.yourCart
+      ul.list-group
+      each cartItem in items
+        li.list-group-item
+          //- span.badge #{cartItem.qty}
+          strong.cart 
+            | #{cartItem.item.name} 
+          span.label.label-success.cart #{cartItem.price}
+          .btn-group.action
+            button.btn.btn-primary.btn-xs.dropdown-toggle(type='button' data-toggle='dropdown')  Action 
+             
+            span.label.label-success.carts #{cartItem.qty}
+            ul.dropdown-menu
+              li
+                a(href='#') Reduced by 1
+              li
+                a(href='#') Remove All
+      .row
+        .col-sm-6.col-md-6.col-md-offset-3.col-sm-offset-3
+        strong  Total: #{totalPrice}
+        hr
+        .row
+        .col-sm-6.col-md-6.col-md-offset-3.col-sm-offset-3
+        a.btn.btn-success(href='/checkout' type='button') Checkout
+        .row
+        .col-sm-6.col-md-6.col-md-offset-3.col-sm-offset-3
+        //- h2 No Items in Cart
 
-          
+
+                

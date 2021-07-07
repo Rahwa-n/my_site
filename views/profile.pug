@@ -12,7 +12,7 @@ block content
           a.nav-link(href='/')
             | Home
             span.sr-only (current)
-        li.nav-item.active
+        li.nav-item
           a.nav-link(href='/about') About
         li.nav-item
           a.nav-link(href='/menu') Menu
@@ -41,9 +41,17 @@ block content
         .ml-2.acct_srch.d-flex
           // shopping cart
           .ml-2.circle
-            a(href='#')
+            a(href='/cart')
               i.fas.fa-shopping-cart.text-white
   h1.head User profile
-  p 
-    | Welcome to Your Profile Page
-  a(href='/sessionLogout') Log Out
+  .col-md-12
+    .card-body
+      h4.center 
+        | Welcome to Your Profile Page 
+        b #{name}
+        br
+        br
+      //- a(href='/sessionLogout') Log Out
+
+      form(method='POST' action='/logout?_method=DELETE')
+         button.btn.btn-primary(type='submit') Log out
